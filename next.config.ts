@@ -4,8 +4,8 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '10mb',
     },
+    appDir: true, // ✅ WAJIB: pastikan App Router aktif
   },
-  // TAMBAHKAN BLOK INI
   images: {
     remotePatterns: [
       {
@@ -16,6 +16,8 @@ const nextConfig = {
       },
     ],
   },
+  reactStrictMode: true, // ✅ Direkomendasikan untuk dev
+  swcMinify: true,       // ✅ Build lebih cepat & kecil
 };
 
 export default nextConfig;
