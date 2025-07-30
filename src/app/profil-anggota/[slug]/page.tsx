@@ -3,7 +3,8 @@ import { dataDivisi, type Anggota } from '../data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-// Fungsi ini membantu Next.js membuat halaman statis untuk setiap anggota saat build
+// Fungsi ini membantu Next.js membuat halaman statis untuk setiap anggota saat build.
+// Ini adalah praktik terbaik untuk performa.
 export async function generateStaticParams() {
   const allSlugs = dataDivisi.flatMap(divisi => 
     divisi.anggota.map(a => ({ slug: a.slug }))
@@ -11,7 +12,7 @@ export async function generateStaticParams() {
   return allSlugs;
 }
 
-// Fungsi untuk mencari anggota berdasarkan slug
+// Fungsi untuk mencari anggota berdasarkan slug dari data kita.
 function getAnggotaBySlug(slug: string): Anggota | null {
   for (const divisi of dataDivisi) {
     const anggota = divisi.anggota.find((a: Anggota) => a.slug === slug);
@@ -22,11 +23,16 @@ function getAnggotaBySlug(slug: string): Anggota | null {
   return null;
 }
 
-// PERBAIKAN UTAMA: Tipe untuk props didefinisikan langsung di sini
-export default function AnggotaDetailPage({ params }: { params: { slug: string } }) {
+// PERBAIKAN UTAMA: Definisikan tipe untuk props halaman dengan jelas.
+// Ini adalah struktur yang diharapkan oleh Next.js untuk halaman dinamis.
+interface PageProps {
+  params: { slug: string };
+}
+
+export default function AnggotaDetailPage({ params }: PageProps) {
   const anggota = getAnggotaBySlug(params.slug);
 
-  // Jika anggota tidak ditemukan, tampilkan halaman 404
+  // Jika anggota dengan slug tersebut tidak ada di data kita, tampilkan halaman 404.
   if (!anggota) {
     notFound();
   }
