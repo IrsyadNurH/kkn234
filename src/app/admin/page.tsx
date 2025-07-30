@@ -2,6 +2,9 @@
 import { prisma } from '../../../lib/prisma';
 import AdminClientPage from './AdminClientPage';
 
+// Tambahkan baris ini untuk membuat halaman menjadi dinamis
+export const dynamic = 'force-dynamic';
+
 // Komponen ini sekarang menjadi Server Component untuk mengambil data
 export default async function AdminPage() {
   // Ambil semua konten yang akan dikelola dari database
