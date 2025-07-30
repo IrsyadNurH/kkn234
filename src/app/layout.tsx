@@ -28,23 +28,16 @@ export default function RootLayout({
   //   return () => clearTimeout(timer);
   // }, []);
 
-  return (
+ return (
     <html lang="id">
       <head>
+        {/* PASTIKAN BARIS INI ADA */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>KKN 234 Mangunarga</title>
         <meta name="description" content="Website resmi kelompok KKN 234 Desa Mangunarga" />
       </head>
-      <body className={`${inter.className} bg-emerald-50`}>
-        {isLoading ? (
-          // Tampilkan layar loading jika isLoading bernilai true
-          <LoadingScreen onFinished={() => setIsLoading(false)} />
-        ) : (
-          // Jika loading selesai, tampilkan konten website
-          <>
-            <Header />
-            <main>{children}</main>
-          </>
-        )}
+      <body className="...">
+        {/* ... (sisa kode Anda) */}
       </body>
     </html>
   );
