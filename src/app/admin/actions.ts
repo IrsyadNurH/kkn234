@@ -9,26 +9,27 @@ import { del, put } from '@vercel/blob'; // <- Impor fungsi 'put'
 export async function addDokumentasi(formData: FormData) {
   const imageFile = formData.get('imageFile') as File;
   const caption = formData.get('caption') as string;
-  const siklus = Number(formData.get('siklus'));
+  const siklus = Number(formData.get('siklus')); // Ambil nilai siklus dari form
 
-  if (!imageFile || !caption || imageFile.size === 0) {
-    throw new Error('File gambar dan caption wajib diisi');
+  if (!imageFile || !caption || !siklus || imageFile.size === 0) {
+    throw new Error('File gambar, caption, dan siklus wajib diisi');
   }
 
   // 1. Upload file ke Vercel Blob
-    const blob = await put(imageFile.name, imageFile, {
-      access: 'public',
-      addRandomSuffix: true, // <-- Tambahkan baris ini
-    });
+  const blob = await put(imageFile.name, imageFile, {
+    access: 'public',
+    addRandomSuffix: true,
+  });
 
   // 2. Simpan URL yang dikembalikan Vercel Blob ke database Prisma Anda
- await prisma.dokumentasi.create({
-  data: {
-    imageUrl: blob.url,
-    caption,
-    siklus, // Ini akan menyimpan siklus sebagai angka
-  },
-});
+  await prisma.dokumentasi.create({
+    data: {
+      imageUrl: blob.url,
+      caption,
+      siklus, // Simpan siklus sebagai angka
+    },
+  });
+
   // 3. Refresh halaman galeri
   revalidatePath('/galeri');
 }

@@ -25,13 +25,46 @@ function AdminDashboard({ dokumentasi, artikel }: { dokumentasi: Dokumentasi[], 
           <form action={addDokumentasi} className="space-y-4" encType="multipart/form-data">
             <div>
               <label htmlFor="imageFile" className="block text-sm font-medium text-gray-700">Pilih Gambar</label>
-              <input type="file" name="imageFile" id="imageFile" required accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+              <input
+                type="file"
+                name="imageFile"
+                id="imageFile"
+                required
+                accept="image/png, image/jpeg, image/gif"
+                className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              />
             </div>
             <div>
               <label htmlFor="caption" className="block text-sm font-medium text-gray-700">Caption</label>
-              <input type="text" name="caption" id="caption" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+              <input
+                type="text"
+                name="caption"
+                id="caption"
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+              />
             </div>
-            <button type="submit" className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700">Upload Foto</button>
+            <div>
+              <label htmlFor="siklus" className="block text-sm font-medium text-gray-700">Siklus</label>
+              <select
+                name="siklus"
+                id="siklus"
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+              >
+                <option value="" disabled selected>Pilih Siklus</option>
+                <option value="1">Siklus 1</option>
+                <option value="2">Siklus 2</option>
+                <option value="3">Siklus 3</option>
+                <option value="4">Siklus 4</option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"
+            >
+              Upload Foto
+            </button>
           </form>
         </div>
         {/* Form Artikel */}
