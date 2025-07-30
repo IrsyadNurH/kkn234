@@ -2,8 +2,19 @@
 const nextConfig = {
   experimental: {
     serverActions: {
-      bodySizeLimit: '30mb', // Batas ukuran 10MB
+      bodySizeLimit: '10mb',
     },
+  },
+  // TAMBAHKAN BLOK INI
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'kqajb4b5foo1vkun.public.blob.vercel-storage.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
