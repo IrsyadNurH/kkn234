@@ -1,5 +1,8 @@
 import { prisma } from '../../../lib/prisma';
-import GalleryClientPage from './GalleryClientPage'; // Komponen client untuk interaktivitas
+import GalleryClientPage from './GalleryClientPage';
+
+// Tambahkan baris ini untuk membuat halaman menjadi dinamis
+export const dynamic = 'force-dynamic';
 
 // Fungsi untuk mengambil semua data dokumentasi dari server
 async function getDokumentasi() {
