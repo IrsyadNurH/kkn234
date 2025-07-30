@@ -20,3 +20,16 @@ export default async function AdminPage() {
   // Kirim data yang sudah diambil sebagai props ke komponen client
   return <AdminClientPage initialDokumentasi={dokumentasi} initialArtikel={artikel} />;
 }
+
+async function getDokumentasi() {
+  const dokumentasi = await prisma.dokumentasi.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return dokumentasi.map((doc) => ({
+    ...doc,
+    siklus: Number(doc.siklus), // Konversi siklus ke angka
+  }));
+}

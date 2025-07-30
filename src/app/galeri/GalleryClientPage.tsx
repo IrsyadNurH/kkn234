@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { Dokumentasi } from '@prisma/client';
 import Image from 'next/image'; // <-- Impor komponen Image
 
@@ -10,16 +10,20 @@ interface GalleryProps {
 
 export default function GalleryClientPage({ photos }: GalleryProps) {
   const [activeFilter, setActiveFilter] = useState<number | null>(null);
-  const [selectedImage, setSelectedImage] =  useState<Dokumentasi | null>(null);
+  const [selectedImage, setSelectedImage] = useState<Dokumentasi | null>(null);
 
   const filteredPhotos = useMemo(() => {
     if (activeFilter === null) {
       return photos;
     }
-    return photos.filter(photo => Number(photo.siklus) === activeFilter);
+    return photos.filter((photo) => photo.siklus === activeFilter); // Pastikan tipe data cocok
   }, [activeFilter, photos]);
 
   const filters = [1, 2, 3, 4];
+
+  useEffect(() => {
+    console.log("Filtered Photos:", filteredPhotos);
+  }, [filteredPhotos]);
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-12">
@@ -44,26 +48,6 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
             Siklus {siklus}
           </button>
         ))}
-      </div>
-
-      {/* Dropdown Filter */}
-      <div className="mb-10">
-        <label htmlFor="siklus" className="block text-sm font-medium text-gray-700 mb-2">
-          Filter berdasarkan Siklus
-        </label>
-        <select
-          name="siklus"
-          id="siklus"
-          required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-          onChange={(e) => setActiveFilter(e.target.value ? Number(e.target.value) : null)}
-        >
-          <option value="" disabled selected>Pilih Siklus</option>
-          <option value="1">Siklus 1</option>
-          <option value="2">Siklus 2</option>
-          <option value="3">Siklus 3</option>
-          <option value="4">Siklus 4</option>
-        </select>
       </div>
 
       {/* Grid Foto */}
