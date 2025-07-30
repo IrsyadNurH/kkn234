@@ -1,4 +1,4 @@
-import { prisma }from '../../lib/prisma';
+import { prisma } from '../../lib/prisma';
 import HomepageSlideshow from './components/HomepageSlideshow';
 import ProkerCard from './components/ProkerCard';
 import ArtikelCard from './components/ArtikelCard';

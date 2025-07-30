@@ -19,3 +19,34 @@
   }
 }
 
+/* --- TAMBAHKAN KODE DI BAWAH INI --- */
+
+/* Pola untuk bagian Program Kerja */
+.bg-pattern-proker {
+  background-color: #f0f9ff; /* Warna dasar biru sangat muda */
+  background-image: repeating-linear-gradient(
+    45deg,
+    #e0f2fe 25%,
+    transparent 25%,
+    transparent 75%,
+    #e0f2fe 75%,
+    #e0f2fe
+  ),
+  repeating-linear-gradient(
+    -45deg,
+    #e0f2fe 25%,
+    transparent 25%,
+    transparent 75%,
+    #e0f2fe 75%,
+    #e0f2fe
+  );
+  background-position: 0 0, 8px 8px;
+  background-size: 16px 16px;
+}
+
+/* Pola untuk bagian Artikel */
+.bg-pattern-artikel {
+  background-color: #f7fee7; /* Warna dasar hijau sangat muda */
+  background-image: radial-gradient(#dcfce7 1px, transparent 1px);
+  background-size: 10px 10px;
+}
