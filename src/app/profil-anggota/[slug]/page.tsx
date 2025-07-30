@@ -15,13 +15,8 @@ function getAnggotaBySlug(slug: string): Anggota | null {
   return null;
 }
 
-// Definisikan interface yang benar untuk props halaman
-interface AnggotaDetailPageProps {
-  params: { slug: string };
-}
-
-// Gunakan interface tersebut pada komponen
-export default function AnggotaDetailPage({ params }: AnggotaDetailPageProps) {
+// PERBAIKAN: Tipe data untuk props didefinisikan langsung di sini
+export default function AnggotaDetailPage({ params }: { params: { slug: string } }) {
   const anggota = getAnggotaBySlug(params.slug);
 
   // Jika anggota tidak ditemukan, tampilkan halaman 404
