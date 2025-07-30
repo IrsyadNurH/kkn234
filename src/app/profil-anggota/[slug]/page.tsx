@@ -13,13 +13,12 @@ function getAnggotaBySlug(slug: string): Anggota | undefined {
   return undefined;
 }
 
-// Tipe untuk props komponen
-type Props = {
-  params: { slug: string }
-}
-
-// Komponen halaman
-export default async function Page({ params }: Props) {
+// Komponen halaman dengan tipe yang benar untuk Next.js App Router
+export default function Page({ 
+  params 
+}: { 
+  params: { slug: string } 
+}) {
   const anggota = getAnggotaBySlug(params.slug);
 
   if (!anggota) {
@@ -77,8 +76,12 @@ export default async function Page({ params }: Props) {
   );
 }
 
-// Generate metadata
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+// Generate metadata dengan tipe params yang benar
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: { slug: string } 
+}): Promise<Metadata> {
   const anggota = getAnggotaBySlug(params.slug);
   
   if (!anggota) {
