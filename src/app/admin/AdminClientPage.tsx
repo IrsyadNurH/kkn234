@@ -68,7 +68,17 @@ function AdminDashboard({ dokumentasi, artikel }: { dokumentasi: Dokumentasi[], 
                 <form action={deleteDokumentasi}>
                   <input type="hidden" name="id" value={doc.id} />
                   <input type="hidden" name="imageUrl" value={doc.imageUrl} />
+                    <div>
+                    <label htmlFor="siklus" className="block text-sm font-medium text-gray-700">Siklus</label>
+                    <select name="siklus" id="siklus" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+                        <option value="1">Siklus 1</option>
+                        <option value="2">Siklus 2</option>
+                        <option value="3">Siklus 3</option>
+                        <option value="4">Siklus 4</option>
+                      </select>
+                    </div>
                   <button type="submit" className="bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-md hover:bg-red-600 transition flex-shrink-0">Hapus</button>
+                
                 </form>
               </div>
             ))}

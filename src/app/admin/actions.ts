@@ -19,14 +19,16 @@ export async function addDokumentasi(formData: FormData) {
       access: 'public',
       addRandomSuffix: true, // <-- Tambahkan baris ini
     });
+const siklus = Number(formData.get('siklus'));
 
   // 2. Simpan URL yang dikembalikan Vercel Blob ke database Prisma Anda
   await prisma.dokumentasi.create({
-    data: {
-      imageUrl: blob.url, // <- Gunakan URL dari hasil upload
-      caption,
-    },
-  });
+  data: {
+    imageUrl: blob.url,
+    caption,
+    siklus, // <-- Tambahkan ini
+  },
+});
 
   // 3. Refresh halaman galeri
   revalidatePath('/galeri');

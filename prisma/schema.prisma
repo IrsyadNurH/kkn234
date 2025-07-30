@@ -25,6 +25,7 @@ model Dokumentasi {
   id             Int          @id @default(autoincrement())
   imageUrl       String
   caption        String
+  siklus         Int          // <-- TAMBAHKAN BARIS INI
   createdAt      DateTime     @default(now())
   programKerjaId Int?
   programKerja   ProgramKerja? @relation(fields: [programKerjaId], references: [id])
