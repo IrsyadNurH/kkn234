@@ -1,27 +1,25 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
-// Impor semua actions
 import { 
-  addDokumentasi, 
-  addArtikel, 
-  addProgramKerja,
-  deleteDokumentasi, 
-  deleteArtikel,
-  deleteProgramKerja
+  addDokumentasi, addArtikel, addProgramKerja,
+  deleteDokumentasi, deleteArtikel, deleteProgramKerja
 } from './actions';
 import type { Dokumentasi, Artikel, ProgramKerja } from '@prisma/client';
 
-// Definisikan props untuk komponen
 interface AdminClientPageProps {
   initialDokumentasi: Dokumentasi[];
   initialArtikel: Artikel[];
   initialProgramKerja: ProgramKerja[];
 }
 
-// Komponen Dashboard Admin yang sesungguhnya
+// Komponen Dashboard Admin
 function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: Dokumentasi[], artikel: Artikel[], programKerja: ProgramKerja[] }) {
+  const formRefDokumentasi = useRef<HTMLFormElement>(null);
+  const formRefArtikel = useRef<HTMLFormElement>(null);
+  const formRefProker = useRef<HTMLFormElement>(null);
+
   return (
     <div>
       {/* Bagian Form untuk Menambah Konten */}
@@ -30,7 +28,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
         {/* Form Dokumentasi */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Foto Dokumentasi</h3>
-          <form action={addDokumentasi} className="space-y-4" encType="multipart/form-data">
+          <form ref={formRefDokumentasi} action={async (formData) => { await addDokumentasi(formData); formRefDokumentasi.current?.reset(); }} className="space-y-4" encType="multipart/form-data">
             <div>
               <label htmlFor="imageFile" className="block text-sm font-medium text-gray-700">Pilih Gambar</label>
               <input type="file" name="imageFile" id="imageFile" required accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
@@ -43,10 +41,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
               <label htmlFor="siklus" className="block text-sm font-medium text-gray-700">Siklus</label>
               <select name="siklus" id="siklus" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" defaultValue="">
                 <option value="" disabled>Pilih Siklus</option>
-                <option value="1">Siklus 1</option>
-                <option value="2">Siklus 2</option>
-                <option value="3">Siklus 3</option>
-                <option value="4">Siklus 4</option>
+                <option value="1">Siklus 1</option><option value="2">Siklus 2</option><option value="3">Siklus 3</option><option value="4">Siklus 4</option>
               </select>
             </div>
             <button type="submit" className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700">Upload Foto</button>
@@ -56,7 +51,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
         {/* Form Artikel */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Artikel Baru</h3>
-          <form action={addArtikel} className="space-y-4">
+          <form ref={formRefArtikel} action={async (formData) => { await addArtikel(formData); formRefArtikel.current?.reset(); }} className="space-y-4">
             <div>
               <label htmlFor="judul" className="block text-sm font-medium text-gray-700">Judul</label>
               <input type="text" name="judul" id="judul" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
@@ -72,7 +67,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
         {/* Form Program Kerja */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Program Kerja</h3>
-          <form action={addProgramKerja} className="space-y-4">
+          <form ref={formRefProker} action={async (formData) => { await addProgramKerja(formData); formRefProker.current?.reset(); }} className="space-y-4">
             <div>
               <label htmlFor="nama" className="block text-sm font-medium text-gray-700">Nama Program</label>
               <input type="text" name="nama" id="nama" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
@@ -102,10 +97,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
             {programKerja.map((proker) => (
               <div key={proker.id} className="bg-white p-3 rounded-lg shadow-md flex items-center justify-between gap-4">
                 <p className="font-medium truncate flex-grow min-w-0">{proker.nama}</p>
-                <form action={deleteProgramKerja}>
-                  <input type="hidden" name="id" value={proker.id} />
-                  <button type="submit" className="bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-md hover:bg-red-600 transition flex-shrink-0">Hapus</button>
-                </form>
+                <form action={deleteProgramKerja}><input type="hidden" name="id" value={proker.id} /><button type="submit" className="bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-md hover:bg-red-600 transition flex-shrink-0">Hapus</button></form>
               </div>
             ))}
             {programKerja.length === 0 && <p className="text-gray-500 text-center py-4">Tidak ada program kerja.</p>}
@@ -122,11 +114,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
                   <img src={doc.imageUrl} alt={doc.caption} className="w-16 h-16 object-cover rounded-md flex-shrink-0" />
                   <p className="font-medium truncate">{doc.caption}</p>
                 </div>
-                <form action={deleteDokumentasi}>
-                  <input type="hidden" name="id" value={doc.id} />
-                  <input type="hidden" name="imageUrl" value={doc.imageUrl} />
-                  <button type="submit" className="bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-md hover:bg-red-600 transition flex-shrink-0">Hapus</button>
-                </form>
+                <form action={deleteDokumentasi}><input type="hidden" name="id" value={doc.id} /><input type="hidden" name="imageUrl" value={doc.imageUrl} /><button type="submit" className="bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-md hover:bg-red-600 transition flex-shrink-0">Hapus</button></form>
               </div>
             ))}
             {dokumentasi.length === 0 && <p className="text-gray-500 text-center py-4">Tidak ada dokumentasi.</p>}
@@ -140,10 +128,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
             {artikel.map((art) => (
               <div key={art.id} className="bg-white p-3 rounded-lg shadow-md flex items-center justify-between gap-4">
                 <p className="font-medium truncate flex-grow min-w-0">{art.judul}</p>
-                <form action={deleteArtikel}>
-                  <input type="hidden" name="id" value={art.id} />
-                  <button type="submit" className="bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-md hover:bg-red-600 transition flex-shrink-0">Hapus</button>
-                </form>
+                <form action={deleteArtikel}><input type="hidden" name="id" value={art.id} /><button type="submit" className="bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-md hover:bg-red-600 transition flex-shrink-0">Hapus</button></form>
               </div>
             ))}
             {artikel.length === 0 && <p className="text-gray-500 text-center py-4">Tidak ada artikel.</p>}
@@ -154,7 +139,6 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
   );
 }
 
-
 // Komponen utama yang mengatur tampilan login atau dashboard
 export default function AdminClientPage({ initialDokumentasi, initialArtikel, initialProgramKerja }: AdminClientPageProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -163,14 +147,12 @@ export default function AdminClientPage({ initialDokumentasi, initialArtikel, in
 
   useEffect(() => {
     const session = getCookie('kkn-admin-session');
-    if (session === 'true') {
-      setIsLoggedIn(true);
-    }
+    if (session === 'true') setIsLoggedIn(true);
   }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'PasswordRahasiaKKN234') {
+    if (password === 'PasswordRahasiaKKN234') { // Ganti dengan password Anda
       setCookie('kkn-admin-session', 'true', { maxAge: 60 * 60 * 24 });
       setIsLoggedIn(true);
       setError('');
