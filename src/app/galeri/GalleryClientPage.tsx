@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { Dokumentasi } from '@prisma/client';
+import Image from 'next/image'; // <-- Impor komponen Image
 
 interface GalleryProps {
   photos: Dokumentasi[];
@@ -15,10 +16,14 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
     if (activeFilter === null) {
       return photos;
     }
-    return photos.filter((photo) => photo.siklus === activeFilter);
+    return photos.filter((photo) => photo.siklus === activeFilter); // Pastikan tipe data cocok
   }, [activeFilter, photos]);
 
   const filters = [1, 2, 3, 4];
+
+  useEffect(() => {
+    console.log("Filtered Photos:", filteredPhotos);
+  }, [filteredPhotos]);
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-12">
@@ -47,18 +52,24 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
 
       {/* Grid Foto */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {filteredPhotos.map((photo) => (
+        {filteredPhotos.filter(p => p.imageUrl).map((photo) => (
           <div
             key={photo.id}
-            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md"
+            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md aspect-square bg-gray-200"
             onClick={() => setSelectedImage(photo)}
           >
-            <img
-              src={photo.imageUrl}
-              alt={photo.caption}
-              className="w-full h-full object-cover aspect-square transform transition-transform duration-300 group-hover:scale-110"
-            />
-            {/* Overlay yang muncul saat hover */}
+            {/* Tambahkan posisi relatif pada elemen induk */}
+            <div className="relative w-full h-full">
+              {/* Menggunakan komponen <Image> dari next/image */}
+              <Image
+                src={photo.imageUrl}
+                alt={photo.caption}
+                fill // Mengisi elemen induk
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                className="object-cover transform transition-transform duration-300 group-hover:scale-110"
+              />
+            </div>
+            {/* Overlay */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center p-4">
               <p className="text-white text-center font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {photo.caption}
@@ -68,26 +79,17 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
         ))}
       </div>
 
-      {/* Lightbox Modal untuk memperbesar gambar */}
+      {/* Lightbox Modal */}
       {selectedImage && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={selectedImage.imageUrl}
-              alt={selectedImage.caption}
-              className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"
-            />
+            <img src={selectedImage.imageUrl} alt={selectedImage.caption} className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"/>
             <p className="text-white text-center mt-4">{selectedImage.caption}</p>
           </div>
-          <button 
-            className="absolute top-4 right-4 text-white text-3xl"
-            onClick={() => setSelectedImage(null)}
-          >
-            &times;
-          </button>
+          <button className="absolute top-4 right-4 text-white text-3xl" onClick={() => setSelectedImage(null)}>&times;</button>
         </div>
       )}
     </div>
