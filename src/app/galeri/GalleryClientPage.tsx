@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { Dokumentasi } from '@prisma/client';
 
 interface GalleryProps {
@@ -11,12 +11,22 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
   const [activeFilter, setActiveFilter] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<Dokumentasi | null>(null);
 
+  // LANGKAH DEBUG: Tampilkan data mentah di konsol browser
+  // Buka konsol (F12) di browser untuk melihat apakah 'siklus' ada di setiap foto.
+  useEffect(() => {
+    console.log("Data foto yang diterima:", photos);
+  }, [photos]);
+
   const filteredPhotos = useMemo(() => {
     if (activeFilter === null) {
       return photos;
     }
-    // PERBAIKAN 2: Pastikan perbandingan dilakukan sebagai angka
-    return photos.filter((photo) => Number(photo.siklus) === activeFilter);
+    // PERBAIKAN FILTER: Memastikan perbandingan tipe data yang kuat
+    return photos.filter((photo) => {
+      // Menambahkan console.log untuk melihat proses filter
+      console.log(`Membandingkan foto siklus: ${photo.siklus} (tipe: ${typeof photo.siklus}) dengan filter: ${activeFilter} (tipe: ${typeof activeFilter})`);
+      return Number(photo.siklus) === activeFilter;
+    });
   }, [activeFilter, photos]);
 
   const filters = [1, 2, 3, 4];
@@ -49,17 +59,17 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
       {/* Grid Foto */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredPhotos.map((photo) => (
-          // PERBAIKAN 1: Pindahkan `aspect-square` ke div ini
+          // PERBAIKAN KOTAK HITAM: Menyederhanakan struktur
           <div
             key={photo.id}
-            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md aspect-square"
+            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md"
             onClick={() => setSelectedImage(photo)}
           >
             <img
               src={photo.imageUrl}
               alt={photo.caption}
-              // PERBAIKAN 1: Hapus `aspect-square` dari sini dan pastikan gambar mengisi penuh
-              className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"
+              // Terapkan aspect-ratio langsung ke gambar, hapus absolute positioning
+              className="w-full aspect-square object-cover transform transition-transform duration-300 group-hover:scale-110"
             />
             {/* Overlay yang muncul saat hover */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center p-4">
@@ -70,27 +80,26 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
           </div>
         ))}
       </div>
+      
+      {/* Tampilkan pesan jika filter tidak menemukan hasil */}
+      {filteredPhotos.length === 0 && photos.length > 0 && (
+        <div className="text-center col-span-full py-10">
+          <p className="text-gray-500">Tidak ada foto yang ditemukan untuk filter ini.</p>
+        </div>
+      )}
 
-      {/* Lightbox Modal untuk memperbesar gambar */}
+      {/* Lightbox Modal */}
       {selectedImage && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
+          {/* ... (sisa kode lightbox tidak berubah) ... */}
           <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={selectedImage.imageUrl}
-              alt={selectedImage.caption}
-              className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"
-            />
+            <img src={selectedImage.imageUrl} alt={selectedImage.caption} className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"/>
             <p className="text-white text-center mt-4">{selectedImage.caption}</p>
           </div>
-          <button 
-            className="absolute top-4 right-4 text-white text-3xl"
-            onClick={() => setSelectedImage(null)}
-          >
-            &times;
-          </button>
+          <button className="absolute top-4 right-4 text-white text-3xl" onClick={() => setSelectedImage(null)}>&times;</button>
         </div>
       )}
     </div>
