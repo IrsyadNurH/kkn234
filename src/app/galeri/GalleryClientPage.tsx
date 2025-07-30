@@ -64,7 +64,7 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
               <Image
                 src={photo.imageUrl}
                 alt={photo.caption}
-                fill // Mengisi elemen induk
+                fill
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 className="object-cover transform transition-transform duration-300 group-hover:scale-110"
               />
@@ -86,7 +86,13 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage.imageUrl} alt={selectedImage.caption} className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"/>
+            <Image
+              src={selectedImage.imageUrl}
+              alt={selectedImage.caption}
+              width={800} // Tentukan ukuran eksplisit
+              height={600}
+              className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"
+            />
             <p className="text-white text-center mt-4">{selectedImage.caption}</p>
           </div>
           <button className="absolute top-4 right-4 text-white text-3xl" onClick={() => setSelectedImage(null)}>&times;</button>
