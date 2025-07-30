@@ -1,0 +1,37 @@
+// File: prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// PASTIKAN BLOK INI ADA
+datasource db {
+  provider = "sqlite" // Menggunakan SQLite
+  url      = env("DATABASE_URL") // Mengambil URL dari file .env
+}
+
+// Model-model Anda
+model ProgramKerja {
+  id              Int           @id @default(autoincrement())
+  nama            String
+  deskripsi       String
+  tanggal         DateTime      @default(now())
+  penanggungJawab String
+  dokumentasi     Dokumentasi[]
+}
+
+model Dokumentasi {
+  id             Int          @id @default(autoincrement())
+  imageUrl       String
+  caption        String
+  createdAt      DateTime     @default(now())
+  programKerjaId Int?
+  programKerja   ProgramKerja? @relation(fields: [programKerjaId], references: [id])
+}
+
+model Artikel {
+  id        Int      @id @default(autoincrement())
+  judul     String
+  konten    String
+  createdAt DateTime @default(now())
+}
