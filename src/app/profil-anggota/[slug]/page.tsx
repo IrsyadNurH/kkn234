@@ -70,3 +70,11 @@ export default function AnggotaDetailPage({ params }: { params: { slug: string }
     </div>
   );
 }
+
+export async function generateStaticParams() {
+  return dataDivisi.flatMap((divisi) =>
+    divisi.anggota.map((anggota) => ({
+      slug: anggota.slug,
+    }))
+  );
+}
