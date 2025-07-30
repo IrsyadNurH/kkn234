@@ -22,11 +22,17 @@ function getAnggotaBySlug(slug: string): Anggota | undefined {
   return undefined;
 }
 
-// --- PERBAIKAN UTAMA: Menggunakan 'async' pada komponen ---
-// Ini memungkinkan kita untuk menggunakan 'await' pada props jika diperlukan,
-// dan yang terpenting, ini menyelesaikan masalah tipe data 'PageProps'.
-export default async function AnggotaDetailPage({ params }: { params: { slug: string } }) {
-  const anggota = getAnggotaBySlug(params.slug);
+// --- PERBAIKAN UTAMA: Menerapkan pola async/await untuk props di Next.js 15 ---
+
+// 1. Definisikan tipe props di mana 'params' adalah sebuah Promise
+interface AnggotaDetailPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+// 2. Jadikan komponen 'async' dan 'await' params untuk mendapatkan nilainya
+export default async function AnggotaDetailPage({ params }: AnggotaDetailPageProps) {
+  const { slug } = await params; // Await params untuk mendapatkan slug
+  const anggota = getAnggotaBySlug(slug);
 
   if (!anggota) {
     notFound();
