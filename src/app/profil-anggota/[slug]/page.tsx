@@ -3,9 +3,7 @@ import { dataDivisi, type Anggota } from '../data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-// --- BAGIAN 1: GENERATE STATIC PARAMS ---
-// Fungsi ini membantu Next.js mengetahui semua halaman profil yang ada saat proses build.
-// Ini adalah praktik terbaik untuk performa dan stabilitas.
+// Fungsi ini membantu Next.js membuat halaman statis untuk setiap anggota saat build.
 export async function generateStaticParams() {
   const allSlugs = dataDivisi.flatMap(divisi => 
     divisi.anggota.map(anggota => ({ slug: anggota.slug }))
@@ -13,8 +11,7 @@ export async function generateStaticParams() {
   return allSlugs;
 }
 
-// --- BAGIAN 2: FUNGSI PENGAMBIL DATA ---
-// Fungsi sederhana untuk mencari anggota berdasarkan slug dari data kita.
+// Fungsi untuk mencari anggota berdasarkan slug dari data kita.
 function getAnggotaBySlug(slug: string): Anggota | undefined {
   for (const divisi of dataDivisi) {
     const anggota = divisi.anggota.find((a) => a.slug === slug);
@@ -25,9 +22,7 @@ function getAnggotaBySlug(slug: string): Anggota | undefined {
   return undefined;
 }
 
-// --- BAGIAN 3: KOMPONEN HALAMAN ---
-// PERBAIKAN UTAMA: Mendefinisikan tipe props dengan 'type' alias yang eksplisit.
-// Ini adalah pendekatan yang paling stabil untuk TypeScript di Next.js.
+// Mendefinisikan tipe props untuk halaman detail.
 type AnggotaDetailPageProps = {
   params: {
     slug: string;
