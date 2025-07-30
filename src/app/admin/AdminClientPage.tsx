@@ -1,75 +1,61 @@
-// app/admin/AdminClientPage.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
-// Impor semua actions, termasuk yang baru
-import { addDokumentasi, addArtikel, deleteDokumentasi, deleteArtikel } from './actions';
-import type { Dokumentasi, Artikel } from '@prisma/client';
+// Impor semua actions
+import { 
+  addDokumentasi, 
+  addArtikel, 
+  addProgramKerja,
+  deleteDokumentasi, 
+  deleteArtikel,
+  deleteProgramKerja
+} from './actions';
+import type { Dokumentasi, Artikel, ProgramKerja } from '@prisma/client';
 
 // Definisikan props untuk komponen
 interface AdminClientPageProps {
   initialDokumentasi: Dokumentasi[];
   initialArtikel: Artikel[];
+  initialProgramKerja: ProgramKerja[];
 }
 
 // Komponen Dashboard Admin yang sesungguhnya
-function AdminDashboard({ dokumentasi, artikel }: { dokumentasi: Dokumentasi[], artikel: Artikel[] }) {
+function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: Dokumentasi[], artikel: Artikel[], programKerja: ProgramKerja[] }) {
   return (
     <div>
-      {/* Bagian Form untuk Menambah Konten (tidak berubah) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+      {/* Bagian Form untuk Menambah Konten */}
+      <h2 className="text-2xl font-bold mb-6 text-center">Tambah Konten Baru</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
         {/* Form Dokumentasi */}
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-6">Upload Foto Dokumentasi</h2>
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h3 className="text-xl font-bold mb-4">Foto Dokumentasi</h3>
           <form action={addDokumentasi} className="space-y-4" encType="multipart/form-data">
             <div>
               <label htmlFor="imageFile" className="block text-sm font-medium text-gray-700">Pilih Gambar</label>
-              <input
-                type="file"
-                name="imageFile"
-                id="imageFile"
-                required
-                accept="image/png, image/jpeg, image/gif"
-                className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-              />
+              <input type="file" name="imageFile" id="imageFile" required accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
             </div>
             <div>
               <label htmlFor="caption" className="block text-sm font-medium text-gray-700">Caption</label>
-              <input
-                type="text"
-                name="caption"
-                id="caption"
-                required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              />
+              <input type="text" name="caption" id="caption" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
             <div>
               <label htmlFor="siklus" className="block text-sm font-medium text-gray-700">Siklus</label>
-              <select
-                name="siklus"
-                id="siklus"
-                required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              >
-                <option value="" disabled selected>Pilih Siklus</option>
+              <select name="siklus" id="siklus" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" defaultValue="">
+                <option value="" disabled>Pilih Siklus</option>
                 <option value="1">Siklus 1</option>
                 <option value="2">Siklus 2</option>
                 <option value="3">Siklus 3</option>
                 <option value="4">Siklus 4</option>
               </select>
             </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"
-            >
-              Upload Foto
-            </button>
+            <button type="submit" className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700">Upload Foto</button>
           </form>
         </div>
+        
         {/* Form Artikel */}
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-6">Tambah Artikel Baru</h2>
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h3 className="text-xl font-bold mb-4">Artikel Baru</h3>
           <form action={addArtikel} className="space-y-4">
             <div>
               <label htmlFor="judul" className="block text-sm font-medium text-gray-700">Judul</label>
@@ -82,18 +68,56 @@ function AdminDashboard({ dokumentasi, artikel }: { dokumentasi: Dokumentasi[], 
             <button type="submit" className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">Terbitkan Artikel</button>
           </form>
         </div>
+
+        {/* Form Program Kerja */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h3 className="text-xl font-bold mb-4">Program Kerja</h3>
+          <form action={addProgramKerja} className="space-y-4">
+            <div>
+              <label htmlFor="nama" className="block text-sm font-medium text-gray-700">Nama Program</label>
+              <input type="text" name="nama" id="nama" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            </div>
+            <div>
+              <label htmlFor="deskripsi" className="block text-sm font-medium text-gray-700">Deskripsi</label>
+              <textarea name="deskripsi" id="deskripsi" rows={2} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            </div>
+            <div>
+              <label htmlFor="penanggungJawab" className="block text-sm font-medium text-gray-700">Penanggung Jawab</label>
+              <input type="text" name="penanggungJawab" id="penanggungJawab" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            </div>
+            <button type="submit" className="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-md hover:bg-purple-700">Simpan Program</button>
+          </form>
+        </div>
       </div>
 
       <hr className="my-12"/>
 
-      {/* Bagian Baru untuk Mengelola Konten */}
+      {/* Bagian untuk Mengelola Konten */}
+      <h2 className="text-2xl font-bold mb-6 text-center">Kelola Konten yang Sudah Ada</h2>
       <div className="space-y-12">
+        {/* Kelola Program Kerja */}
+        <div>
+          <h3 className="text-xl font-bold mb-4">Daftar Program Kerja</h3>
+          <div className="space-y-3">
+            {programKerja.map((proker) => (
+              <div key={proker.id} className="bg-white p-3 rounded-lg shadow-md flex items-center justify-between gap-4">
+                <p className="font-medium truncate flex-grow min-w-0">{proker.nama}</p>
+                <form action={deleteProgramKerja}>
+                  <input type="hidden" name="id" value={proker.id} />
+                  <button type="submit" className="bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-md hover:bg-red-600 transition flex-shrink-0">Hapus</button>
+                </form>
+              </div>
+            ))}
+            {programKerja.length === 0 && <p className="text-gray-500 text-center py-4">Tidak ada program kerja.</p>}
+          </div>
+        </div>
+        
         {/* Kelola Dokumentasi */}
         <div>
-          <h2 className="text-2xl font-bold mb-6">Kelola Dokumentasi</h2>
-          <div className="space-y-4">
+          <h3 className="text-xl font-bold mb-4">Daftar Dokumentasi</h3>
+          <div className="space-y-3">
             {dokumentasi.map((doc) => (
-              <div key={doc.id} className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between gap-4">
+              <div key={doc.id} className="bg-white p-3 rounded-lg shadow-md flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4 flex-grow min-w-0">
                   <img src={doc.imageUrl} alt={doc.caption} className="w-16 h-16 object-cover rounded-md flex-shrink-0" />
                   <p className="font-medium truncate">{doc.caption}</p>
@@ -101,30 +125,20 @@ function AdminDashboard({ dokumentasi, artikel }: { dokumentasi: Dokumentasi[], 
                 <form action={deleteDokumentasi}>
                   <input type="hidden" name="id" value={doc.id} />
                   <input type="hidden" name="imageUrl" value={doc.imageUrl} />
-                    <div>
-                    <label htmlFor="siklus" className="block text-sm font-medium text-gray-700">Siklus</label>
-                    <select name="siklus" id="siklus" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
-                        <option value="1">Siklus 1</option>
-                        <option value="2">Siklus 2</option>
-                        <option value="3">Siklus 3</option>
-                        <option value="4">Siklus 4</option>
-                      </select>
-                    </div>
                   <button type="submit" className="bg-red-500 text-white text-sm font-bold py-2 px-3 rounded-md hover:bg-red-600 transition flex-shrink-0">Hapus</button>
-                
                 </form>
               </div>
             ))}
-            {dokumentasi.length === 0 && <p className="text-gray-500 text-center">Tidak ada dokumentasi untuk dikelola.</p>}
+            {dokumentasi.length === 0 && <p className="text-gray-500 text-center py-4">Tidak ada dokumentasi.</p>}
           </div>
         </div>
 
         {/* Kelola Artikel */}
         <div>
-          <h2 className="text-2xl font-bold mb-6">Kelola Artikel</h2>
-          <div className="space-y-4">
+          <h3 className="text-xl font-bold mb-4">Daftar Artikel</h3>
+          <div className="space-y-3">
             {artikel.map((art) => (
-              <div key={art.id} className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between gap-4">
+              <div key={art.id} className="bg-white p-3 rounded-lg shadow-md flex items-center justify-between gap-4">
                 <p className="font-medium truncate flex-grow min-w-0">{art.judul}</p>
                 <form action={deleteArtikel}>
                   <input type="hidden" name="id" value={art.id} />
@@ -132,7 +146,7 @@ function AdminDashboard({ dokumentasi, artikel }: { dokumentasi: Dokumentasi[], 
                 </form>
               </div>
             ))}
-            {artikel.length === 0 && <p className="text-gray-500 text-center">Tidak ada artikel untuk dikelola.</p>}
+            {artikel.length === 0 && <p className="text-gray-500 text-center py-4">Tidak ada artikel.</p>}
           </div>
         </div>
       </div>
@@ -141,8 +155,8 @@ function AdminDashboard({ dokumentasi, artikel }: { dokumentasi: Dokumentasi[], 
 }
 
 
-// Komponen utama yang mengatur tampilan login atau dashboard (tidak banyak berubah)
-export default function AdminClientPage({ initialDokumentasi, initialArtikel }: AdminClientPageProps) {
+// Komponen utama yang mengatur tampilan login atau dashboard
+export default function AdminClientPage({ initialDokumentasi, initialArtikel, initialProgramKerja }: AdminClientPageProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -156,9 +170,8 @@ export default function AdminClientPage({ initialDokumentasi, initialArtikel }: 
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Ganti 'PasswordRahasiaKKN234' dengan password Anda, idealnya dari .env
     if (password === 'PasswordRahasiaKKN234') {
-      setCookie('kkn-admin-session', 'true', { maxAge: 60 * 60 * 24 }); // Cookie 1 hari
+      setCookie('kkn-admin-session', 'true', { maxAge: 60 * 60 * 24 });
       setIsLoggedIn(true);
       setError('');
     } else {
@@ -175,22 +188,18 @@ export default function AdminClientPage({ initialDokumentasi, initialArtikel }: 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-              />
+              <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
             {error && <p className="text-red-500 text-sm">{error}</p>}
-            <button type="submit" className="w-full bg-gray-800 text-white font-bold py-2 px-4 rounded-md">
-              Masuk
-            </button>
+            <button type="submit" className="w-full bg-gray-800 text-white font-bold py-2 px-4 rounded-md">Masuk</button>
           </form>
         </div>
       ) : (
-        <AdminDashboard dokumentasi={initialDokumentasi} artikel={initialArtikel} />
+        <AdminDashboard 
+          dokumentasi={initialDokumentasi} 
+          artikel={initialArtikel} 
+          programKerja={initialProgramKerja} 
+        />
       )}
     </div>
   );

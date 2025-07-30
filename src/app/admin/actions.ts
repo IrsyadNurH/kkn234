@@ -5,33 +5,31 @@ import { prisma } from '../../../lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { del, put } from '@vercel/blob'; // <- Impor fungsi 'put'
 
-// Aksi untuk menambah dokumentasi baru dengan UPLOAD FILE
+// Aksi untuk menambah dokumentasi baru
 export async function addDokumentasi(formData: FormData) {
   const imageFile = formData.get('imageFile') as File;
   const caption = formData.get('caption') as string;
-  const siklus = Number(formData.get('siklus')); // Ambil nilai siklus dari form
+  const siklus = Number(formData.get('siklus'));
 
   if (!imageFile || !caption || !siklus || imageFile.size === 0) {
     throw new Error('File gambar, caption, dan siklus wajib diisi');
   }
 
-  // 1. Upload file ke Vercel Blob
   const blob = await put(imageFile.name, imageFile, {
     access: 'public',
     addRandomSuffix: true,
   });
 
-  // 2. Simpan URL yang dikembalikan Vercel Blob ke database Prisma Anda
   await prisma.dokumentasi.create({
     data: {
       imageUrl: blob.url,
       caption,
-      siklus, // Simpan siklus sebagai angka
+      siklus,
     },
   });
 
-  // 3. Refresh halaman galeri
   revalidatePath('/galeri');
+  revalidatePath('/admin');
 }
 
 // Aksi untuk menambah artikel baru
@@ -40,7 +38,7 @@ export async function addArtikel(formData: FormData) {
   const konten = formData.get('konten') as string;
 
   if (!judul || !konten) {
-    return; // Validasi sederhana
+    throw new Error('Judul dan konten artikel wajib diisi.');
   }
 
   await prisma.artikel.create({
@@ -50,8 +48,30 @@ export async function addArtikel(formData: FormData) {
     },
   });
 
-  // Memberi tahu Next.js untuk merefresh data di halaman artikel
   revalidatePath('/artikel');
+  revalidatePath('/admin');
+}
+
+// --- AKSI BARU UNTUK PROGRAM KERJA ---
+export async function addProgramKerja(formData: FormData) {
+  const nama = formData.get('nama') as string;
+  const deskripsi = formData.get('deskripsi') as string;
+  const penanggungJawab = formData.get('penanggungJawab') as string;
+
+  if (!nama || !deskripsi || !penanggungJawab) {
+    throw new Error('Semua field program kerja wajib diisi.');
+  }
+
+  await prisma.programKerja.create({
+    data: {
+      nama,
+      deskripsi,
+      penanggungJawab,
+    },
+  });
+
+  revalidatePath('/program-kerja');
+  revalidatePath('/admin');
 }
 
 // --- AKSI BARU UNTUK MENGHAPUS ---
@@ -65,15 +85,12 @@ export async function deleteDokumentasi(formData: FormData) {
     throw new Error('ID dan Image URL diperlukan untuk menghapus.');
   }
 
-  // Langkah 1: Hapus file dari Vercel Blob
   await del(imageUrl);
 
-  // Langkah 2: Hapus record dari database
   await prisma.dokumentasi.delete({
     where: { id },
   });
 
-  // Langkah 3: Perbarui halaman publik dan admin
   revalidatePath('/galeri');
   revalidatePath('/admin');
 }
@@ -86,14 +103,26 @@ export async function deleteArtikel(formData: FormData) {
     throw new Error('ID diperlukan untuk menghapus.');
   }
 
-  // Hapus record dari database
   await prisma.artikel.delete({
     where: { id },
   });
 
-  // Perbarui halaman publik dan admin
   revalidatePath('/artikel');
   revalidatePath('/admin');
 }
 
-// console.log("Dokumentasi:", dokumentasi);
+// Aksi untuk menghapus program kerja
+export async function deleteProgramKerja(formData: FormData) {
+    const id = Number(formData.get('id'));
+
+    if (!id) {
+        throw new Error('ID diperlukan untuk menghapus program kerja.');
+    }
+
+    await prisma.programKerja.delete({
+        where: { id },
+    });
+
+    revalidatePath('/program-kerja');
+    revalidatePath('/admin');
+}
