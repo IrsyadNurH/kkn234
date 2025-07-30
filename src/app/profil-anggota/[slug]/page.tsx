@@ -3,6 +3,14 @@ import { dataDivisi, type Anggota } from '../data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+// Tipe untuk parameter halaman
+type PageParams = {
+  params: {
+    slug: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
 // Fungsi untuk mendapatkan data anggota berdasarkan slug
 function getAnggotaBySlug(slug: string): Anggota | undefined {
   for (const divisi of dataDivisi) {
@@ -12,8 +20,8 @@ function getAnggotaBySlug(slug: string): Anggota | undefined {
   return undefined;
 }
 
-// Komponen halaman - gunakan tipe params yang lebih sederhana
-export default function Page({ params }: { params: { slug: string } }) {
+// Komponen halaman dengan tipe params yang benar
+export default function Page({ params, searchParams }: PageParams) {
   const anggota = getAnggotaBySlug(params.slug);
 
   if (!anggota) {
@@ -62,4 +70,20 @@ export default function Page({ params }: { params: { slug: string } }) {
       </div>
     </div>
   );
+}
+
+// Generate metadata untuk SEO (opsional)
+export function generateMetadata({ params }: PageParams) {
+  const anggota = getAnggotaBySlug(params.slug);
+  
+  if (!anggota) {
+    return {
+      title: 'Anggota Tidak Ditemukan',
+    };
+  }
+
+  return {
+    title: `${anggota.nama} - KKN 234 Mangunarga`,
+    description: anggota.bio,
+  };
 }
