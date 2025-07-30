@@ -1,4 +1,3 @@
-// app/components/Header.tsx
 'use client';
 
 import { useState } from 'react';
@@ -7,11 +6,13 @@ import Link from 'next/link';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Tambahkan link baru di sini
   const navLinks = [
     { href: '/', label: 'Beranda' },
     { href: '/program-kerja', label: 'Program Kerja' },
     { href: '/galeri', label: 'Galeri' },
     { href: '/artikel', label: 'Artikel' },
+    { href: '/profil-anggota', label: 'Profil Anggota' }, // <-- BARIS BARU
   ];
 
   return (
