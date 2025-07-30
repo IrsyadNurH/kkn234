@@ -4,6 +4,9 @@ import ProkerCard from './components/ProkerCard';
 import ArtikelCard from './components/ArtikelCard';
 import Link from 'next/link';
 
+// Tambahkan baris ini untuk membuat halaman menjadi dinamis
+export const dynamic = 'force-dynamic';
+
 // Fungsi untuk mengambil semua data yang dibutuhkan secara bersamaan
 async function getHomepageData() {
   const [latestPhotos, prokerUnggulan, latestArtikel] = await Promise.all([
@@ -12,26 +15,15 @@ async function getHomepageData() {
       orderBy: { createdAt: 'desc' },
     }),
     prisma.programKerja.findMany({
-      take: 10, // Ambil 10 program kerja
+      take: 10,
       orderBy: { tanggal: 'desc' },
     }),
     prisma.artikel.findMany({
-      take: 10, // Ambil 10 artikel
+      take: 10,
       orderBy: { createdAt: 'desc' },
     }),
   ]);
   return { latestPhotos, prokerUnggulan, latestArtikel };
-}
-
-// Komponen untuk pembatas antar seksi dengan bentuk gelombang
-function SectionDivider() {
-  return (
-    <div className="w-full h-20 overflow-hidden">
-      <svg viewBox="0 0 500 150" preserveAspectRatio="none" className="w-full h-full">
-        <path d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" className="stroke-none fill-current text-slate-100"></path>
-      </svg>
-    </div>
-  );
 }
 
 export default async function Home() {
@@ -39,7 +31,7 @@ export default async function Home() {
 
   return (
     <div className="w-full">
-      {/* Bagian Slideshow */}
+      {/* Bagian Slideshow (latar belakang default) */}
       <section className="container mx-auto px-4 sm:px-6 py-16">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Dokumentasi Kegiatan
@@ -47,8 +39,8 @@ export default async function Home() {
         <HomepageSlideshow images={latestPhotos} />
       </section>
 
-      {/* Bagian Program Kerja Unggulan */}
-      <section className="bg-slate-100 py-16">
+      {/* Bagian Program Kerja Unggulan dengan tekstur biru */}
+      <section className="py-16 bg-pattern-proker">
         <div className="container mx-auto">
           <div className="flex justify-between items-center px-4 sm:px-6 mb-8">
             <h2 className="text-3xl font-bold text-gray-800">Program Kerja Unggulan</h2>
@@ -64,11 +56,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Pembatas */}
-      <SectionDivider />
-
-      {/* Bagian Artikel Terbaru */}
-      <section className="bg-white py-16">
+      {/* Bagian Artikel Terbaru dengan tekstur hijau */}
+      <section className="py-16 bg-pattern-artikel">
         <div className="container mx-auto">
           <div className="flex justify-between items-center px-4 sm:px-6 mb-8">
             <h2 className="text-3xl font-bold text-gray-800">Artikel Terbaru</h2>
