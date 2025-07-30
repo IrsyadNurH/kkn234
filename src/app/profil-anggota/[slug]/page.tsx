@@ -37,6 +37,9 @@ export default function AnggotaDetailPage({ params }: AnggotaDetailPageProps) {
     notFound();
   }
 
+  // Gunakan gambar placeholder jika profilePicture kosong atau tidak valid
+  const displayImage = anggota.profilePicture || `https://placehold.co/500x500/e0e7ff/4f46e5?text=${anggota.nama.charAt(0)}`;
+
   return (
     <div className="container mx-auto px-4 sm:px-6 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -44,7 +47,7 @@ export default function AnggotaDetailPage({ params }: AnggotaDetailPageProps) {
         <div className="lg:col-span-1">
           <div className="sticky top-24">
             <Image
-              src={anggota.profilePicture}
+              src={displayImage}
               alt={`Foto profil ${anggota.nama}`}
               width={500}
               height={500}

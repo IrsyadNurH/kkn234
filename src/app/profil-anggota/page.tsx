@@ -4,12 +4,16 @@ import { dataDivisi, type Anggota } from './data';
 
 function AnggotaCard(props: Anggota) {
   const { nama, jabatan, jurusan, imageUrl, slug } = props;
+  
+  // Gunakan gambar placeholder jika imageUrl kosong atau tidak valid
+  const displayImage = imageUrl || `https://placehold.co/128x128/e0e7ff/4f46e5?text=${nama.charAt(0)}`;
+
   return (
     <Link href={`/profil-anggota/${slug}`} className="block group">
-      <div className="bg-white rounded-lg shadow-md p-6 text-center transition-transform transform group-hover:-translate-y-2">
+      <div className="bg-white rounded-lg shadow-md p-6 text-center transition-transform transform group-hover:-translate-y-2 h-full">
         <div className="relative w-32 h-32 mx-auto mb-4">
           <Image
-            src={imageUrl}
+            src={displayImage}
             alt={`Foto profil ${nama}`}
             fill
             sizes="128px"
@@ -38,7 +42,7 @@ export default function ProfilAnggotaPage() {
             {divisi.nama}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {divisi.anggota.filter(anggota => anggota.imageUrl).map((anggota) => (
+            {divisi.anggota.map((anggota) => (
               <AnggotaCard key={anggota.nama} {...anggota} />
             ))}
           </div>
