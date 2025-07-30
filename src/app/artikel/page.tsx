@@ -1,5 +1,9 @@
 // app/artikel/page.tsx
 import { prisma } from '../../../lib/prisma';
+import Link from 'next/link';
+
+// Tambahkan baris ini untuk membuat halaman menjadi dinamis
+export const dynamic = 'force-dynamic';
 
 async function getArtikel() {
   return prisma.artikel.findMany({
@@ -24,7 +28,6 @@ export default async function ArtikelListPage() {
             <p className="text-gray-500 text-sm mb-4">
               Diterbitkan pada {new Date(artikel.createdAt).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
-            {/* Menampilkan sebagian konten */}
             <p className="text-gray-700 whitespace-pre-line">{artikel.konten.substring(0, 300)}...</p>
           </div>
         ))}
