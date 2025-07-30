@@ -1,12 +1,9 @@
 import Image from 'next/image';
-// Impor data dan tipe dari file data terpusat
 import { dataDivisi, type Anggota } from '../data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-// --- BARU: Fungsi untuk generate static params ---
-// Ini membantu Next.js mengetahui semua halaman profil yang ada saat build,
-// yang juga dapat membantu mengatasi masalah tipe data.
+// Fungsi ini membantu Next.js membuat halaman statis untuk setiap anggota saat build
 export async function generateStaticParams() {
   const allSlugs = dataDivisi.flatMap(divisi => 
     divisi.anggota.map(a => ({ slug: a.slug }))
@@ -14,7 +11,7 @@ export async function generateStaticParams() {
   return allSlugs;
 }
 
-// Fungsi untuk mendapatkan data anggota berdasarkan slug
+// Fungsi untuk mencari anggota berdasarkan slug
 function getAnggotaBySlug(slug: string): Anggota | null {
   for (const divisi of dataDivisi) {
     const anggota = divisi.anggota.find((a: Anggota) => a.slug === slug);
@@ -25,12 +22,8 @@ function getAnggotaBySlug(slug: string): Anggota | null {
   return null;
 }
 
-// PERBAIKAN: Definisikan tipe props dengan interface yang jelas
-interface AnggotaDetailPageProps {
-  params: { slug: string };
-}
-
-export default function AnggotaDetailPage({ params }: AnggotaDetailPageProps) {
+// PERBAIKAN UTAMA: Tipe untuk props didefinisikan langsung di sini
+export default function AnggotaDetailPage({ params }: { params: { slug: string } }) {
   const anggota = getAnggotaBySlug(params.slug);
 
   // Jika anggota tidak ditemukan, tampilkan halaman 404
