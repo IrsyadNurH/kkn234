@@ -3,24 +3,31 @@
 
 import { prisma } from '../../../lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { put } from '@vercel/blob'; // <- Impor fungsi 'put'
 
-// Aksi untuk menambah dokumentasi baru
+// Aksi untuk menambah dokumentasi baru dengan UPLOAD FILE
 export async function addDokumentasi(formData: FormData) {
-  const imageUrl = formData.get('imageUrl') as string;
+  const imageFile = formData.get('imageFile') as File;
   const caption = formData.get('caption') as string;
 
-  if (!imageUrl || !caption) {
-    return; // Validasi sederhana
+  if (!imageFile || !caption || imageFile.size === 0) {
+    throw new Error('File gambar dan caption wajib diisi');
   }
 
+  // 1. Upload file ke Vercel Blob
+  const blob = await put(imageFile.name, imageFile, {
+    access: 'public',
+  });
+
+  // 2. Simpan URL yang dikembalikan Vercel Blob ke database Prisma Anda
   await prisma.dokumentasi.create({
     data: {
-      imageUrl,
+      imageUrl: blob.url, // <- Gunakan URL dari hasil upload
       caption,
     },
   });
 
-  // Memberi tahu Next.js untuk merefresh data di halaman galeri
+  // 3. Refresh halaman galeri
   revalidatePath('/galeri');
 }
 

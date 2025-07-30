@@ -13,18 +13,31 @@ function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Form untuk Dokumentasi */}
             <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold mb-6">Tambah Foto Dokumentasi</h2>
-              <form action={addDokumentasi} className="space-y-4">
+              <h2 className="text-2xl font-bold mb-6">Upload Foto Dokumentasi</h2>
+              {/* 1. Tambahkan 'enctype' di sini.
+                2. 'action' tetap sama menunjuk ke Server Action.
+              */}
+              <form action={addDokumentasi} className="space-y-4" encType="multipart/form-data">
                 <div>
-                  <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">URL Gambar</label>
-                  <input type="text" name="imageUrl" id="imageUrl" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                  <label htmlFor="imageFile" className="block text-sm font-medium text-gray-700">Pilih Gambar</label>
+                  {/* 2. Ubah input dari 'text' menjadi 'file'.
+                    Beri nama 'imageFile' agar sesuai dengan logika di server.
+                  */}
+                  <input 
+                    type="file" 
+                    name="imageFile" 
+                    id="imageFile" 
+                    required 
+                    accept="image/png, image/jpeg, image/gif"
+                    className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  />
                 </div>
                 <div>
                   <label htmlFor="caption" className="block text-sm font-medium text-gray-700">Caption/Keterangan</label>
-                  <input type="text" name="caption" id="caption" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                  <input type="text" name="caption" id="caption" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
                 </div>
-                <button type="submit" className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
-                  Simpan Foto
+                <button type="submit" className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700">
+                  Upload & Simpan Foto
                 </button>
               </form>
             </div>
