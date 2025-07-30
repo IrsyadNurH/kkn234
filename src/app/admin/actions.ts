@@ -22,14 +22,13 @@ export async function addDokumentasi(formData: FormData) {
 const siklus = Number(formData.get('siklus'));
 
   // 2. Simpan URL yang dikembalikan Vercel Blob ke database Prisma Anda
-  await prisma.dokumentasi.create({
+ await prisma.dokumentasi.create({
   data: {
     imageUrl: blob.url,
     caption,
-    siklus, // <-- Tambahkan ini
+    siklus, // Ini akan menyimpan siklus sebagai angka
   },
 });
-
   // 3. Refresh halaman galeri
   revalidatePath('/galeri');
 }

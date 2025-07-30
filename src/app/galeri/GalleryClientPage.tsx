@@ -15,7 +15,8 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
     if (activeFilter === null) {
       return photos;
     }
-    return photos.filter((photo) => photo.siklus === activeFilter);
+    // PERBAIKAN 2: Pastikan perbandingan dilakukan sebagai angka
+    return photos.filter((photo) => Number(photo.siklus) === activeFilter);
   }, [activeFilter, photos]);
 
   const filters = [1, 2, 3, 4];
@@ -48,15 +49,17 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
       {/* Grid Foto */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredPhotos.map((photo) => (
+          // PERBAIKAN 1: Pindahkan `aspect-square` ke div ini
           <div
             key={photo.id}
-            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md"
+            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md aspect-square"
             onClick={() => setSelectedImage(photo)}
           >
             <img
               src={photo.imageUrl}
               alt={photo.caption}
-              className="w-full h-full object-cover aspect-square transform transition-transform duration-300 group-hover:scale-110"
+              // PERBAIKAN 1: Hapus `aspect-square` dari sini dan pastikan gambar mengisi penuh
+              className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"
             />
             {/* Overlay yang muncul saat hover */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center p-4">
