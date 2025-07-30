@@ -95,4 +95,4 @@ export async function deleteArtikel(formData: FormData) {
   revalidatePath('/admin');
 }
 
-console.log("Dokumentasi:", dokumentasi);
+// console.log("Dokumentasi:", dokumentasi);
