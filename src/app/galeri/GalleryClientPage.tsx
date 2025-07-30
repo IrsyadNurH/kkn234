@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import type { Dokumentasi } from '@prisma/client';
-import Image from 'next/image'; // <-- Impor komponen Image
+import Image from 'next/image';
 
 interface GalleryProps {
   photos: Dokumentasi[];
@@ -13,17 +13,11 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
   const [selectedImage, setSelectedImage] = useState<Dokumentasi | null>(null);
 
   const filteredPhotos = useMemo(() => {
-    if (activeFilter === null) {
-      return photos;
-    }
-    return photos.filter((photo) => photo.siklus === activeFilter); // Pastikan tipe data cocok
+    if (activeFilter === null) return photos;
+    return photos.filter(photo => Number(photo.siklus) === activeFilter);
   }, [activeFilter, photos]);
 
   const filters = [1, 2, 3, 4];
-
-  useEffect(() => {
-    console.log("Filtered Photos:", filteredPhotos);
-  }, [filteredPhotos]);
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-12">
@@ -53,22 +47,21 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
       {/* Grid Foto */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredPhotos.filter(p => p.imageUrl).map((photo) => (
+          // PERBAIKAN UTAMA:
+          // Elemen ini sekarang menjadi induk langsung dari <Image>
+          // dan bertanggung jawab atas ukuran dan rasio aspek.
           <div
             key={photo.id}
-            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md aspect-square bg-gray-200"
+            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md aspect-square"
             onClick={() => setSelectedImage(photo)}
           >
-            {/* Tambahkan posisi relatif pada elemen induk */}
-            <div className="relative w-full h-full">
-              {/* Menggunakan komponen <Image> dari next/image */}
-              <Image
-                src={photo.imageUrl}
-                alt={photo.caption}
-                fill
-                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                className="object-cover transform transition-transform duration-300 group-hover:scale-110"
-              />
-            </div>
+            <Image
+              src={photo.imageUrl}
+              alt={photo.caption}
+              fill // Properti 'fill' akan membuat gambar mengisi penuh div ini
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+              className="object-cover transform transition-transform duration-300 group-hover:scale-110"
+            />
             {/* Overlay */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center p-4">
               <p className="text-white text-center font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -79,6 +72,13 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
         ))}
       </div>
 
+      {/* Tampilkan pesan jika filter tidak menemukan hasil */}
+      {filteredPhotos.length === 0 && photos.length > 0 && (
+          <p className="text-center text-gray-500 col-span-full mt-8">
+              Tidak ada foto yang ditemukan untuk filter Siklus {activeFilter}.
+          </p>
+      )}
+
       {/* Lightbox Modal */}
       {selectedImage && (
         <div 
@@ -86,13 +86,7 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={selectedImage.imageUrl}
-              alt={selectedImage.caption}
-              width={800} // Tentukan ukuran eksplisit
-              height={600}
-              className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"
-            />
+            <img src={selectedImage.imageUrl} alt={selectedImage.caption} className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"/>
             <p className="text-white text-center mt-4">{selectedImage.caption}</p>
           </div>
           <button className="absolute top-4 right-4 text-white text-3xl" onClick={() => setSelectedImage(null)}>&times;</button>
