@@ -1,7 +1,0 @@
--- CreateTable
-CREATE TABLE "Artikel" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "judul" TEXT NOT NULL,
-    "konten" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);

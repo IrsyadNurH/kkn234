@@ -6,8 +6,9 @@ generator client {
 
 // PASTIKAN BLOK INI ADA
 datasource db {
-  provider = "sqlite" // Menggunakan SQLite
-  url      = env("DATABASE_URL") // Mengambil URL dari file .env
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // Untuk aplikasi saat berjalan (pakai Accelerate)
+  directUrl = env("DIRECT_URL")   // Untuk migrasi (pakai direct connection)
 }
 
 // Model-model Anda
