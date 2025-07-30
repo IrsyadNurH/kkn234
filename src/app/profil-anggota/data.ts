@@ -1,5 +1,6 @@
-// Definisikan tipe data untuk setiap anggota agar kode lebih aman
+// Perbaikan tipe data dengan validasi lebih ketat
 export type Anggota = {
+  id: string;
   nama: string;
   jabatan?: string;
   divisi: string;
@@ -10,7 +11,7 @@ export type Anggota = {
   quote: string;
   bio: string;
   social: {
-    instagram?: string;
+    instagram: string; // Wajib ada
   };
 };
 
@@ -25,11 +26,12 @@ export const dataDivisi: Divisi[] = [
   {
     nama: 'Struktur Inti',
     anggota: [
-      { 
-        nama: 'R. Arik Athallah Bianov Wibisono', 
+      {
+        id: "SI001",
+        nama: 'R. Arik Athallah Bianov Wibisono',
         jabatan: 'Ketua',
         divisi: 'Struktur Inti',
-        jurusan: 'Sejarah Peradaban Islam', 
+        jurusan: 'Sejarah Peradaban Islam',
         imageUrl: '/images/anggota/arik.jpg',
         slug: 'arik-wibisono',
         profilePicture: '/images/anggota/profil/arik-besar.jpg',
@@ -37,10 +39,12 @@ export const dataDivisi: Divisi[] = [
         bio: 'Arik adalah seorang mahasiswa Sejarah Peradaban Islam yang memiliki minat besar dalam kepemimpinan dan organisasi. Sebagai ketua, ia bertanggung jawab untuk mengkoordinasikan seluruh kegiatan KKN dan memastikan semua program berjalan lancar.',
         social: {
           instagram: 'https://instagram.com/arikwibisono',
-        }
+        },
+     
       },
-      { 
-        nama: 'Aulia Hafifah Nuha', 
+      {
+        id: "SI002",
+        nama: 'Aulia Hafifah Nuha',
         jabatan: 'Sekretaris',
         divisi: 'Struktur Inti',
         jurusan: 'Ilmu Komunikasi Jurnalistik', 
@@ -53,8 +57,9 @@ export const dataDivisi: Divisi[] = [
           instagram: 'https://instagram.com/aulianuha',
         }
       },
-      { 
-        nama: 'Yutrie Annisa Herlambang', 
+      {
+        id: "SI003",
+        nama: 'Yutrie Annisa Herlambang',
         jabatan: 'Bendahara',
         divisi: 'Struktur Inti',
         jurusan: 'Pendidikan Islam Anak Usia Dini', 
@@ -66,14 +71,15 @@ export const dataDivisi: Divisi[] = [
         social: {
           instagram: 'https://instagram.com/yutrieannisa',
         }
-      },
-    ],
+      }
+    ]
   },
   {
     nama: 'Divisi Acara',
     anggota: [
-      { 
-        nama: 'Saniyyah Barkah', 
+      {
+        id: "DA001",
+        nama: 'Saniyyah Barkah',
         divisi: 'Divisi Acara',
         jurusan: 'Pendidikan Bahasa Arab', 
         imageUrl: '/images/anggota/saniyyah.jpg',
@@ -85,8 +91,9 @@ export const dataDivisi: Divisi[] = [
           instagram: 'https://instagram.com/saniyyahbarkah',
         }
       },
-      { 
-        nama: 'Puspa Ningrum Musayyadah', 
+      {
+        id: "DA002",
+        nama: 'Puspa Ningrum Musayyadah',
         divisi: 'Divisi Acara',
         jurusan: 'Pendidikan Fisika', 
         imageUrl: '/images/anggota/puspa.jpg',
@@ -98,8 +105,9 @@ export const dataDivisi: Divisi[] = [
           instagram: 'https://instagram.com/puspaningrum',
         }
       },
-      { 
-        nama: 'Miftah Sidiq Nur Islam', 
+      {
+        id: "DA003",
+        nama: 'Miftah Sidiq Nur Islam',
         divisi: 'Divisi Acara',
         jurusan: 'Aqidah dan Filsafat Islam', 
         imageUrl: '/images/anggota/miftah.jpg',
@@ -110,14 +118,15 @@ export const dataDivisi: Divisi[] = [
         social: {
           instagram: 'https://instagram.com/miftahsidiq',
         }
-      },
-    ],
+      }
+    ]
   },
   {
     nama: 'Divisi PDD',
     anggota: [
-      { 
-        nama: 'Irsyad Nur Hidayatullah', 
+      {
+        id: "PDD001",
+        nama: 'Irsyad Nur Hidayatullah',
         divisi: 'Divisi PDD',
         jurusan: 'Teknik Informatika', 
         imageUrl: '/images/anggota/irsyad.jpg',
@@ -129,8 +138,9 @@ export const dataDivisi: Divisi[] = [
           instagram: 'https://instagram.com/irsyadnur',
         }
       },
-      { 
-        nama: 'Muhammad Ridho Mujahid', 
+      {
+        id: "PDD002",
+        nama: 'Muhammad Ridho Mujahid',
         divisi: 'Divisi PDD',
         jurusan: 'Administrasi Publik', 
         imageUrl: '/images/anggota/ridho.jpg',
@@ -142,8 +152,9 @@ export const dataDivisi: Divisi[] = [
           instagram: 'https://instagram.com/ridhomujahid',
         }
       },
-      { 
-        nama: 'Aditya Novrizal Ramdani', 
+      {
+        id: "PDD003",
+        nama: 'Aditya Novrizal Ramdani',
         divisi: 'Divisi PDD',
         jurusan: 'Ekonomi Syari\'ah', 
         imageUrl: '/images/anggota/aditya.jpg',
@@ -154,14 +165,15 @@ export const dataDivisi: Divisi[] = [
         social: {
           instagram: 'https://instagram.com/adityanovrizal',
         }
-      },
-    ],
+      }
+    ]
   },
   {
     nama: 'Divisi Humas',
     anggota: [
-      { 
-        nama: 'Agil Sapik Maulana', 
+      {
+        id: "HM001",
+        nama: 'Agil Sapik Maulana',
         divisi: 'Divisi Humas',
         jurusan: 'Komunikasi dan Penyiaran Islam', 
         imageUrl: '/images/anggota/agil.jpg',
@@ -173,8 +185,9 @@ export const dataDivisi: Divisi[] = [
           instagram: 'https://instagram.com/agilsapik',
         }
       },
-      { 
-        nama: 'Syifa Azzahra', 
+      {
+        id: "HM002",
+        nama: 'Syifa Azzahra',
         divisi: 'Divisi Humas',
         jurusan: 'Sosiologi', 
         imageUrl: '/images/anggota/syifa.jpg',
@@ -186,8 +199,9 @@ export const dataDivisi: Divisi[] = [
           instagram: 'https://instagram.com/syifaazzahra',
         }
       },
-      { 
-        nama: 'Witria Yuliana', 
+      {
+        id: "HM003",
+        nama: 'Witria Yuliana',
         divisi: 'Divisi Humas',
         jurusan: 'Tasawuf dan Psikoterapi', 
         imageUrl: '/images/anggota/witria.jpg',
@@ -198,14 +212,15 @@ export const dataDivisi: Divisi[] = [
         social: {
           instagram: 'https://instagram.com/witria_yuliana',
         }
-      },
-    ],
+      }
+    ]
   },
   {
     nama: 'Divisi Konsumsi',
     anggota: [
-      { 
-        nama: 'Nok Windy Nurjanah', 
+      {
+        id: "KS001",
+        nama: 'Nok Windy Nurjanah',
         divisi: 'Divisi Konsumsi',
         jurusan: 'Pendidikan Agama Islam', 
         imageUrl: '/images/anggota/windy.jpg',
@@ -217,8 +232,9 @@ export const dataDivisi: Divisi[] = [
           instagram: 'https://instagram.com/nokwindy',
         }
       },
-      { 
-        nama: 'Rosalinda', 
+      {
+        id: "KS002",
+        nama: 'Rosalinda',
         divisi: 'Divisi Konsumsi',
         jurusan: 'Hukum Tata Negara', 
         imageUrl: '/images/anggota/rosalinda.jpg',
@@ -230,8 +246,9 @@ export const dataDivisi: Divisi[] = [
           instagram: 'https://instagram.com/rosalinda',
         }
       },
-      { 
-        nama: 'Nurjanah Azzahra', 
+      {
+        id: "KS003",
+        nama: 'Nurjanah Azzahra',
         divisi: 'Divisi Konsumsi',
         jurusan: 'Sastra Inggris', 
         imageUrl: '/images/anggota/nurjanah.jpg',
@@ -242,7 +259,23 @@ export const dataDivisi: Divisi[] = [
         social: {
           instagram: 'https://instagram.com/nurjanahazzahra',
         }
-      },
-    ],
-  },
+      }
+    ]
+  }
 ];
+
+// Fungsi helper untuk validasi data
+export function validateAnggota(anggota: Anggota): boolean {
+  return Boolean(
+    anggota.id &&
+    anggota.nama &&
+    anggota.divisi &&
+    anggota.jurusan &&
+    anggota.imageUrl &&
+    anggota.slug &&
+    anggota.profilePicture &&
+    anggota.quote &&
+    anggota.bio &&
+    anggota.social.instagram
+  );
+}
