@@ -1,8 +1,7 @@
 // app/artikel/page.tsx
 import { prisma } from '../../../lib/prisma';
-import Link from 'next/link';
 
-// Tambahkan baris ini untuk membuat halaman menjadi dinamis
+// Removed unused Link import
 export const dynamic = 'force-dynamic';
 
 async function getArtikel() {

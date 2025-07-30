@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import Image from 'next/image'; // Import the Image component
 import type { Dokumentasi } from '@prisma/client';
 
 interface GalleryProps {
@@ -11,22 +12,15 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
   const [activeFilter, setActiveFilter] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<Dokumentasi | null>(null);
 
-  // LANGKAH DEBUG: Tampilkan data mentah di konsol browser
-  // Buka konsol (F12) di browser untuk melihat apakah 'siklus' ada di setiap foto.
   useEffect(() => {
-    console.log("Data foto yang diterima:", photos);
+    console.log("Data foto yang diterima oleh komponen:", photos);
   }, [photos]);
 
   const filteredPhotos = useMemo(() => {
     if (activeFilter === null) {
       return photos;
     }
-    // PERBAIKAN FILTER: Memastikan perbandingan tipe data yang kuat
-    return photos.filter((photo) => {
-      // Menambahkan console.log untuk melihat proses filter
-      console.log(`Membandingkan foto siklus: ${photo.siklus} (tipe: ${typeof photo.siklus}) dengan filter: ${activeFilter} (tipe: ${typeof activeFilter})`);
-      return Number(photo.siklus) === activeFilter;
-    });
+    return photos.filter(photo => Number(photo.siklus) === activeFilter);
   }, [activeFilter, photos]);
 
   const filters = [1, 2, 3, 4];
@@ -59,19 +53,20 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
       {/* Grid Foto */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredPhotos.map((photo) => (
-          // PERBAIKAN KOTAK HITAM: Menyederhanakan struktur
           <div
             key={photo.id}
-            className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md"
+            className="group relative cursor-pointer rounded-lg shadow-md bg-gray-100"
             onClick={() => setSelectedImage(photo)}
           >
-            <img
-              src={photo.imageUrl}
-              alt={photo.caption}
-              // Terapkan aspect-ratio langsung ke gambar, hapus absolute positioning
-              className="w-full aspect-square object-cover transform transition-transform duration-300 group-hover:scale-110"
-            />
-            {/* Overlay yang muncul saat hover */}
+            <div className="aspect-square w-full">
+              <Image
+                src={photo.imageUrl}
+                alt={photo.caption}
+                layout="fill" // Ensures the image fills the container
+                objectFit="cover" // Maintains aspect ratio and covers the container
+                className="transform transition-transform duration-300 group-hover:scale-110"
+              />
+            </div>
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center p-4">
               <p className="text-white text-center font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {photo.caption}
@@ -83,8 +78,8 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
       
       {/* Tampilkan pesan jika filter tidak menemukan hasil */}
       {filteredPhotos.length === 0 && photos.length > 0 && (
-        <div className="text-center col-span-full py-10">
-          <p className="text-gray-500">Tidak ada foto yang ditemukan untuk filter ini.</p>
+        <div className="col-span-full text-center py-10">
+          <p className="text-gray-500">Tidak ada foto yang ditemukan untuk filter Siklus {activeFilter}.</p>
         </div>
       )}
 
@@ -94,9 +89,14 @@ export default function GalleryClientPage({ photos }: GalleryProps) {
           className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
-          {/* ... (sisa kode lightbox tidak berubah) ... */}
           <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage.imageUrl} alt={selectedImage.caption} className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"/>
+            <Image
+              src={selectedImage.imageUrl}
+              alt={selectedImage.caption}
+              width={800} // Specify width
+              height={600} // Specify height
+              className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg"
+            />
             <p className="text-white text-center mt-4">{selectedImage.caption}</p>
           </div>
           <button className="absolute top-4 right-4 text-white text-3xl" onClick={() => setSelectedImage(null)}>&times;</button>
