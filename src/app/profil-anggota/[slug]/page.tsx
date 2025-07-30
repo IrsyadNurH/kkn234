@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 // --- BAGIAN 1: GENERATE STATIC PARAMS ---
-// Fungsi ini membantu Next.js membuat halaman statis untuk setiap anggota saat build.
+// Fungsi ini membantu Next.js mengetahui semua halaman profil yang ada saat proses build.
 // Ini adalah praktik terbaik untuk performa dan stabilitas.
 export async function generateStaticParams() {
   const allSlugs = dataDivisi.flatMap(divisi => 
@@ -26,12 +26,9 @@ function getAnggotaBySlug(slug: string): Anggota | undefined {
 }
 
 // --- BAGIAN 3: KOMPONEN HALAMAN ---
-// PERBAIKAN UTAMA: Mendefinisikan tipe props dengan cara yang paling eksplisit.
-type Props = {
-  params: { slug: string };
-};
-
-export default function AnggotaDetailPage({ params }: Props) {
+// PERBAIKAN UTAMA: Mendefinisikan tipe props secara langsung dan sederhana.
+// Ini adalah cara yang paling aman untuk menghindari error TypeScript.
+export default function AnggotaDetailPage({ params }: { params: { slug: string } }) {
   const anggota = getAnggotaBySlug(params.slug);
 
   // Jika anggota tidak ditemukan, tampilkan halaman 404.
