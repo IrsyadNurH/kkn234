@@ -7,8 +7,8 @@ generator client {
 // PASTIKAN BLOK INI ADA
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL") // Untuk aplikasi saat berjalan (pakai Accelerate)
-  directUrl = env("DIRECT_URL")   // Untuk migrasi (pakai direct connection)
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // Model-model Anda
