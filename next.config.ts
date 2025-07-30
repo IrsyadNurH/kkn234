@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     serverActions: {
-      bodySizeLimit: '10mb', // Menaikkan batas menjadi 10MB
+      bodySizeLimit: '30mb', // Batas ukuran 10MB
     },
   },
 };
