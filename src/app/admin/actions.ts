@@ -9,6 +9,7 @@ import { del, put } from '@vercel/blob'; // <- Impor fungsi 'put'
 export async function addDokumentasi(formData: FormData) {
   const imageFile = formData.get('imageFile') as File;
   const caption = formData.get('caption') as string;
+  const siklus = Number(formData.get('siklus'));
 
   if (!imageFile || !caption || imageFile.size === 0) {
     throw new Error('File gambar dan caption wajib diisi');
@@ -19,7 +20,6 @@ export async function addDokumentasi(formData: FormData) {
       access: 'public',
       addRandomSuffix: true, // <-- Tambahkan baris ini
     });
-const siklus = Number(formData.get('siklus'));
 
   // 2. Simpan URL yang dikembalikan Vercel Blob ke database Prisma Anda
  await prisma.dokumentasi.create({
