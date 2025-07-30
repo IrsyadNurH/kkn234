@@ -19,8 +19,6 @@
   }
 }
 
-/* --- TAMBAHKAN KODE DI BAWAH INI --- */
-
 /* Pola untuk bagian Program Kerja */
 .bg-pattern-proker {
   background-color: #f0f9ff; /* Warna dasar biru sangat muda */
@@ -49,4 +47,22 @@
   background-color: #f7fee7; /* Warna dasar hijau sangat muda */
   background-image: radial-gradient(#dcfce7 1px, transparent 1px);
   background-size: 10px 10px;
+}
+
+/* --- KODE BARU UNTUK LATAR BELAKANG LOGO --- */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Pastikan nama file ini sesuai dengan nama file logo Anda di folder /public */
+  background-image: url('/logo-kkn.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain; /* Membuat logo pas di layar */
+  opacity: 0.05; /* Atur opacity (0.05 = 5%) */
+  z-index: -1; /* Meletakkan logo di belakang semua konten */
+  pointer-events: none; /* Memastikan logo tidak bisa di-klik */
 }
