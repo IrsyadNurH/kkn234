@@ -14,12 +14,12 @@ function getAnggotaBySlug(slug: string): Anggota | undefined {
 }
 
 // Komponen halaman dengan tipe yang benar untuk Next.js App Router
-export default function Page({ 
+export default async function Page({ 
   params 
 }: { 
-  params: { slug: string } 
+  params: Promise<{ slug: string }> 
 }) {
-  const anggota = getAnggotaBySlug(params.slug);
+  const anggota = getAnggotaBySlug((await params).slug);
 
   if (!anggota) {
     notFound();
