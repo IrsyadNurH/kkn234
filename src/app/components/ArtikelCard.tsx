@@ -9,7 +9,8 @@ export default function ArtikelCard({ artikel }: { artikel: Artikel }) {
           {artikel.konten}
         </p>
         <div className="mt-4 text-sm text-gray-400">
-          {new Date(artikel.createdAt).toLocaleDateString('id-ID', {
+          {/* PERBAIKAN: Ganti 'createdAt' menjadi 'tanggalTerbit' */}
+          {new Date(artikel.tanggalTerbit).toLocaleDateString('id-ID', {
             day: 'numeric',
             month: 'long',
             year: 'numeric',
