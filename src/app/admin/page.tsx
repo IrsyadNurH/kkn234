@@ -9,7 +9,8 @@ export const dynamic = 'force-dynamic';
 export default async function AdminPage() {
   const [dokumentasi, artikel, programKerja] = await Promise.all([
     prisma.dokumentasi.findMany({ orderBy: { createdAt: 'desc' } }),
-    prisma.artikel.findMany({ orderBy: { createdAt: 'desc' } }),
+    // PERBAIKAN: Ganti 'createdAt' menjadi 'tanggalTerbit'
+    prisma.artikel.findMany({ orderBy: { tanggalTerbit: 'desc' } }),
     prisma.programKerja.findMany({ orderBy: { tanggal: 'desc' } }),
   ]);
 
