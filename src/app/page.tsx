@@ -20,7 +20,8 @@ async function getHomepageData() {
     }),
     prisma.artikel.findMany({
       take: 10,
-      orderBy: { createdAt: 'desc' },
+      // PERBAIKAN: Ganti 'createdAt' menjadi 'tanggalTerbit'
+      orderBy: { tanggalTerbit: 'desc' },
     }),
   ]);
   return { latestPhotos, prokerUnggulan, latestArtikel };
