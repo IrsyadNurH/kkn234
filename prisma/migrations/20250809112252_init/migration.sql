@@ -3,7 +3,7 @@ CREATE TABLE "public"."ProgramKerja" (
     "id" SERIAL NOT NULL,
     "nama" TEXT NOT NULL,
     "deskripsi" TEXT NOT NULL,
-    "tanggal" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "tanggal" TIMESTAMP(3) NOT NULL,
     "penanggungJawab" TEXT NOT NULL,
 
     CONSTRAINT "ProgramKerja_pkey" PRIMARY KEY ("id")
@@ -26,7 +26,7 @@ CREATE TABLE "public"."Artikel" (
     "id" SERIAL NOT NULL,
     "judul" TEXT NOT NULL,
     "konten" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "tanggalTerbit" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Artikel_pkey" PRIMARY KEY ("id")
 );
