@@ -1,4 +1,4 @@
-import prisma from '../../lib/prisma'; // PERBAIKAN: Menggunakan path relatif
+import { prisma } from '../../lib/prisma'; // PERBAIKAN: Menggunakan named import
 import HomepageSlideshow from './components/HomepageSlideshow';
 import ProkerCard from './components/ProkerCard';
 import ArtikelCard from './components/ArtikelCard';
