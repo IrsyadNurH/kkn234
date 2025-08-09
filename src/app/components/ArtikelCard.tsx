@@ -1,5 +1,6 @@
-import type { Artikel } from '@prisma/client';
+import type { Artikel } from '@prisma/client'; // PERBAIKAN: Impor tipe data
 
+// PERBAIKAN: Terapkan tipe data pada props
 export default function ArtikelCard({ artikel }: { artikel: Artikel }) {
   return (
     <div className="flex-shrink-0 w-80 bg-white rounded-lg shadow-lg overflow-hidden snap-start">
@@ -9,7 +10,6 @@ export default function ArtikelCard({ artikel }: { artikel: Artikel }) {
           {artikel.konten}
         </p>
         <div className="mt-4 text-sm text-gray-400">
-          {/* PERBAIKAN: Ganti 'createdAt' menjadi 'tanggalTerbit' */}
           {new Date(artikel.tanggalTerbit).toLocaleDateString('id-ID', {
             day: 'numeric',
             month: 'long',

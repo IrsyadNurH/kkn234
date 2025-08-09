@@ -1,5 +1,6 @@
-import type { ProgramKerja } from '@prisma/client';
+import type { ProgramKerja } from '@prisma/client'; // PERBAIKAN: Impor tipe data
 
+// PERBAIKAN: Terapkan tipe data pada props
 export default function ProkerCard({ program }: { program: ProgramKerja }) {
   return (
     <div className="flex-shrink-0 w-80 bg-white rounded-lg shadow-lg overflow-hidden snap-start">
