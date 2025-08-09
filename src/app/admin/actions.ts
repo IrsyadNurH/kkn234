@@ -45,10 +45,19 @@ export async function deleteDokumentasi(formData: FormData) {
 export async function addArtikel(formData: FormData) {
   const judul = formData.get('judul') as string;
   const konten = formData.get('konten') as string;
+  const tanggalTerbitString = formData.get('tanggalTerbit') as string;
 
-  if (!judul || !konten) throw new Error('Judul dan konten wajib diisi.');
+  if (!judul || !konten || !tanggalTerbitString) {
+    throw new Error('Judul, konten, dan tanggal terbit artikel wajib diisi.');
+  }
 
-  await prisma.artikel.create({ data: { judul, konten } });
+  await prisma.artikel.create({
+    data: {
+      judul,
+      konten,
+      tanggalTerbit: new Date(tanggalTerbitString), // Simpan sebagai objek Date
+    },
+  });
 
   revalidatePath('/artikel');
   revalidatePath('/admin');
@@ -69,13 +78,19 @@ export async function addProgramKerja(formData: FormData) {
   const nama = formData.get('nama') as string;
   const deskripsi = formData.get('deskripsi') as string;
   const penanggungJawab = formData.get('penanggungJawab') as string;
+  const tanggalString = formData.get('tanggal') as string;
 
-  if (!nama || !deskripsi || !penanggungJawab) {
+  if (!nama || !deskripsi || !penanggungJawab || !tanggalString) {
     throw new Error('Semua field program kerja wajib diisi.');
   }
 
   await prisma.programKerja.create({
-    data: { nama, deskripsi, penanggungJawab },
+    data: {
+      nama,
+      deskripsi,
+      penanggungJawab,
+      tanggal: new Date(tanggalString), // Simpan sebagai objek Date
+    },
   });
 
   revalidatePath('/program-kerja');
@@ -91,3 +106,5 @@ export async function deleteProgramKerja(formData: FormData) {
     revalidatePath('/program-kerja');
     revalidatePath('/admin');
 }
+
+

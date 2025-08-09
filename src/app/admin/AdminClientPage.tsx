@@ -25,7 +25,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
       {/* Bagian Form untuk Menambah Konten */}
       <h2 className="text-2xl font-bold mb-6 text-center">Tambah Konten Baru</h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-        {/* Form Dokumentasi */}
+        {/* Form Dokumentasi (tidak berubah) */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Foto Dokumentasi</h3>
           <form ref={formRefDokumentasi} action={async (formData) => { await addDokumentasi(formData); formRefDokumentasi.current?.reset(); }} className="space-y-4" encType="multipart/form-data">
@@ -56,9 +56,14 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
               <label htmlFor="judul" className="block text-sm font-medium text-gray-700">Judul</label>
               <input type="text" name="judul" id="judul" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
+            {/* INPUT TANGGAL BARU */}
+            <div>
+              <label htmlFor="tanggalTerbit" className="block text-sm font-medium text-gray-700">Tanggal Terbit</label>
+              <input type="date" name="tanggalTerbit" id="tanggalTerbit" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            </div>
             <div>
               <label htmlFor="konten" className="block text-sm font-medium text-gray-700">Konten</label>
-              <textarea name="konten" id="konten" rows={5} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+              <textarea name="konten" id="konten" rows={3} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
             <button type="submit" className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">Terbitkan Artikel</button>
           </form>
@@ -71,6 +76,11 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
             <div>
               <label htmlFor="nama" className="block text-sm font-medium text-gray-700">Nama Program</label>
               <input type="text" name="nama" id="nama" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            </div>
+            {/* INPUT TANGGAL BARU */}
+            <div>
+              <label htmlFor="tanggal" className="block text-sm font-medium text-gray-700">Tanggal Pelaksanaan</label>
+              <input type="date" name="tanggal" id="tanggal" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
             <div>
               <label htmlFor="deskripsi" className="block text-sm font-medium text-gray-700">Deskripsi</label>
@@ -144,15 +154,10 @@ export default function AdminClientPage({ initialDokumentasi, initialArtikel, in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    const session = getCookie('kkn-admin-session');
-    if (session === 'true') setIsLoggedIn(true);
-  }, []);
-
+  useEffect(() => { const session = getCookie('kkn-admin-session'); if (session === 'true') setIsLoggedIn(true); }, []);
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'PasswordRahasiaKKN234') { // Ganti dengan password Anda
+    if (password === 'PasswordRahasiaKKN234') {
       setCookie('kkn-admin-session', 'true', { maxAge: 60 * 60 * 24 });
       setIsLoggedIn(true);
       setError('');
@@ -160,7 +165,6 @@ export default function AdminClientPage({ initialDokumentasi, initialArtikel, in
       setError('Password salah!');
     }
   };
-
   return (
     <div className="container mx-auto px-6 py-12">
       <h1 className="text-3xl font-bold text-gray-800 mb-10">Halaman Admin</h1>

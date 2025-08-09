@@ -16,7 +16,7 @@ model ProgramKerja {
   id              Int           @id @default(autoincrement())
   nama            String
   deskripsi       String
-  tanggal         DateTime      @default(now())
+  tanggal         DateTime      // <-- @default(now()) dihapus
   penanggungJawab String
   dokumentasi     Dokumentasi[]
 }
@@ -25,15 +25,15 @@ model Dokumentasi {
   id             Int          @id @default(autoincrement())
   imageUrl       String
   caption        String
-  siklus         Int          
+  siklus         Int
   createdAt      DateTime     @default(now())
   programKerjaId Int?
   programKerja   ProgramKerja? @relation(fields: [programKerjaId], references: [id])
 }
 
 model Artikel {
-  id        Int      @id @default(autoincrement())
-  judul     String
-  konten    String
-  createdAt DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  judul         String
+  konten        String   @db.Text
+  tanggalTerbit DateTime // <-- 'createdAt' diganti nama dan @default(now()) dihapus
 }
