@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import imageCompression from 'browser-image-compression';
 import { 
@@ -9,52 +9,89 @@ import {
 } from './actions';
 import type { Dokumentasi, Artikel, ProgramKerja } from '@prisma/client';
 
+// Types
 interface AdminClientPageProps {
   initialDokumentasi: Dokumentasi[];
   initialArtikel: Artikel[];
   initialProgramKerja: ProgramKerja[];
 }
 
-// Komponen Dashboard Admin
-function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: Dokumentasi[], artikel: Artikel[], programKerja: ProgramKerja[] }) {
-  const [isSubmitting, setIsSubmitting] = useState({ dok: false, art: false, pro: false });
-  const formRefDokumentasi = useRef<HTMLFormElement>(null);
-  const formRefArtikel = useRef<HTMLFormElement>(null);
-  const formRefProker = useRef<HTMLFormElement>(null);
+// Image compression function
+async function compressImage(file: File): Promise<File> {
+  console.log(`Original size: ${(file.size / 1024 / 1024).toFixed(2)} MB`);
+  
+  const options = {
+    maxSizeMB: 3,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+  };
 
+  const compressedFile = await imageCompression(file, options);
+  console.log(`Compressed size: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`);
+  
+  return compressedFile;
+}
+
+// Loading button component
+function LoadingButton({ 
+  isLoading, 
+  loadingText, 
+  defaultText, 
+  colorClass = "bg-blue-600 hover:bg-blue-700" 
+}: {
+  isLoading: boolean;
+  loadingText: string;
+  defaultText: string;
+  colorClass?: string;
+}) {
+  return (
+    <button 
+      type="submit" 
+      disabled={isLoading} 
+      className={`w-full text-white font-bold py-2 px-4 rounded-md disabled:bg-gray-400 ${colorClass}`}
+    >
+      {isLoading ? loadingText : defaultText}
+    </button>
+  );
+}
+
+// Dashboard Component
+function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: Dokumentasi[], artikel: Artikel[], programKerja: ProgramKerja[] }) {
+  const [isSubmitting, setIsSubmitting] = useState('');
+
+  // Generic form submission handler
   const handleFormSubmit = async (
-    event: FormEvent<HTMLFormElement>, 
+    event: FormEvent<HTMLFormElement>,
     action: (formData: FormData) => Promise<void>,
-    formType: 'dok' | 'art' | 'pro'
+    type: 'dok' | 'art' | 'pro',
+    requiresImage = false
   ) => {
     event.preventDefault();
-    setIsSubmitting(prev => ({ ...prev, [formType]: true }));
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const imageFile = formData.get('imageFile') as File | null;
+    setIsSubmitting(type);
 
     try {
-      if (imageFile && imageFile.size > 0) {
-        const options = {
-          maxSizeMB: 3,
-          maxWidthOrHeight: 1920,
-          useWebWorker: true,
-        };
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+      const imageFile = formData.get('imageFile') as File | null;
 
-        const compressedFile = await imageCompression(imageFile, options);
+      if (imageFile?.size) {
+        if (imageFile.size > 10 * 1024 * 1024) {
+          throw new Error('File terlalu besar (maksimal 10MB)');
+        }
+        const compressedFile = await compressImage(imageFile);
         formData.set('imageFile', compressedFile, compressedFile.name);
+      } else if (requiresImage) {
+        throw new Error('Gambar wajib diupload');
       }
 
       await action(formData);
       form.reset();
-      alert('Konten berhasil ditambahkan!');
-
+      alert('Berhasil ditambahkan!');
     } catch (error) {
-      console.error("Gagal mengupload:", error);
-      alert('Terjadi kesalahan saat mengupload. Coba lagi.');
+      console.error(`Error submitting ${type}:`, error);
+      alert(error instanceof Error ? error.message : 'Terjadi kesalahan');
     } finally {
-      setIsSubmitting(prev => ({ ...prev, [formType]: false }));
+      setIsSubmitting('');
     }
   };
 
@@ -82,13 +119,11 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
                 <option value="1">Siklus 1</option><option value="2">Siklus 2</option><option value="3">Siklus 3</option><option value="4">Siklus 4</option>
               </select>
             </div>
-            <button 
-              type="submit" 
-              disabled={isSubmitting.dok} 
-              className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400"
-            >
-              {isSubmitting.dok ? 'Mengompres...' : 'Upload Foto'}
-            </button>
+            <LoadingButton 
+              isLoading={isSubmitting === 'dok'} 
+              loadingText="Mengompres..." 
+              defaultText="Upload Foto" 
+            />
           </form>
         </div>
         
@@ -109,13 +144,12 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
               <label htmlFor="konten" className="block text-sm font-medium text-gray-700">Konten</label>
               <textarea name="konten" id="konten" rows={3} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
-            <button 
-              type="submit" 
-              disabled={isSubmitting.art} 
-              className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 disabled:bg-gray-400"
-            >
-              {isSubmitting.art ? 'Mengompres...' : 'Terbitkan Artikel'}
-            </button>
+            <LoadingButton 
+              isLoading={isSubmitting === 'art'} 
+              loadingText="Mengompres..." 
+              defaultText="Terbitkan Artikel" 
+              colorClass="bg-green-600 hover:bg-green-700"
+            />
           </form>
         </div>
 
@@ -140,13 +174,12 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
               <label htmlFor="penanggungJawab" className="block text-sm font-medium text-gray-700">Penanggung Jawab</label>
               <input type="text" name="penanggungJawab" id="penanggungJawab" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
-            <button 
-              type="submit" 
-              disabled={isSubmitting.pro} 
-              className="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-md hover:bg-purple-700 disabled:bg-gray-400"
-            >
-              {isSubmitting.pro ? 'Mengompres...' : 'Simpan Program'}
-            </button>
+            <LoadingButton 
+              isLoading={isSubmitting === 'pro'} 
+              loadingText="Mengompres..." 
+              defaultText="Simpan Program" 
+              colorClass="bg-purple-600 hover:bg-purple-700"
+            />
           </form>
         </div>
       </div>
