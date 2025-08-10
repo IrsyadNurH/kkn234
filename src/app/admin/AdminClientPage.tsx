@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
+import imageCompression from 'browser-image-compression';
 import { 
   addDokumentasi, addArtikel, addProgramKerja,
   deleteDokumentasi, deleteArtikel, deleteProgramKerja
@@ -16,19 +17,56 @@ interface AdminClientPageProps {
 
 // Komponen Dashboard Admin
 function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: Dokumentasi[], artikel: Artikel[], programKerja: ProgramKerja[] }) {
+  const [isSubmitting, setIsSubmitting] = useState({ dok: false, art: false, pro: false });
   const formRefDokumentasi = useRef<HTMLFormElement>(null);
   const formRefArtikel = useRef<HTMLFormElement>(null);
   const formRefProker = useRef<HTMLFormElement>(null);
+
+  const handleFormSubmit = async (
+    event: FormEvent<HTMLFormElement>, 
+    action: (formData: FormData) => Promise<void>,
+    formType: 'dok' | 'art' | 'pro'
+  ) => {
+    event.preventDefault();
+    setIsSubmitting(prev => ({ ...prev, [formType]: true }));
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const imageFile = formData.get('imageFile') as File | null;
+
+    try {
+      if (imageFile && imageFile.size > 0) {
+        const options = {
+          maxSizeMB: 3,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        };
+
+        const compressedFile = await imageCompression(imageFile, options);
+        formData.set('imageFile', compressedFile, compressedFile.name);
+      }
+
+      await action(formData);
+      form.reset();
+      alert('Konten berhasil ditambahkan!');
+
+    } catch (error) {
+      console.error("Gagal mengupload:", error);
+      alert('Terjadi kesalahan saat mengupload. Coba lagi.');
+    } finally {
+      setIsSubmitting(prev => ({ ...prev, [formType]: false }));
+    }
+  };
 
   return (
     <div>
       {/* Bagian Form untuk Menambah Konten */}
       <h2 className="text-2xl font-bold mb-6 text-center">Tambah Konten Baru</h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-        {/* Form Dokumentasi (tidak berubah) */}
+        {/* Form Dokumentasi */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Foto Dokumentasi</h3>
-          <form ref={formRefDokumentasi} action={async (formData) => { await addDokumentasi(formData); formRefDokumentasi.current?.reset(); }} className="space-y-4" encType="multipart/form-data">
+          <form onSubmit={(e) => handleFormSubmit(e, addDokumentasi, 'dok')} className="space-y-4" encType="multipart/form-data">
             <div>
               <label htmlFor="imageFile" className="block text-sm font-medium text-gray-700">Pilih Gambar</label>
               <input type="file" name="imageFile" id="imageFile" required accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
@@ -44,14 +82,20 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
                 <option value="1">Siklus 1</option><option value="2">Siklus 2</option><option value="3">Siklus 3</option><option value="4">Siklus 4</option>
               </select>
             </div>
-            <button type="submit" className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700">Upload Foto</button>
+            <button 
+              type="submit" 
+              disabled={isSubmitting.dok} 
+              className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400"
+            >
+              {isSubmitting.dok ? 'Mengompres...' : 'Upload Foto'}
+            </button>
           </form>
         </div>
         
         {/* Form Artikel */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Artikel Baru</h3>
-          <form ref={formRefArtikel} action={async (formData) => { await addArtikel(formData); formRefArtikel.current?.reset(); }} className="space-y-4">
+          <form onSubmit={(e) => handleFormSubmit(e, addArtikel, 'art')} className="space-y-4">
             <div>
               <label htmlFor="judul" className="block text-sm font-medium text-gray-700">Judul</label>
               <input type="text" name="judul" id="judul" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
@@ -65,18 +109,20 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
               <label htmlFor="konten" className="block text-sm font-medium text-gray-700">Konten</label>
               <textarea name="konten" id="konten" rows={3} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
-            <button type="submit" className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">Terbitkan Artikel</button>
-           <div>
-              <label htmlFor="imageFileArtikel" className="block text-sm font-medium text-gray-700">Gambar Artikel (Opsional)</label>
-              <input type="file" name="imageFile" id="imageFileArtikel" accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100" />
-            </div>
+            <button 
+              type="submit" 
+              disabled={isSubmitting.art} 
+              className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 disabled:bg-gray-400"
+            >
+              {isSubmitting.art ? 'Mengompres...' : 'Terbitkan Artikel'}
+            </button>
           </form>
         </div>
 
         {/* Form Program Kerja */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Program Kerja</h3>
-          <form ref={formRefProker} action={async (formData) => { await addProgramKerja(formData); formRefProker.current?.reset(); }} className="space-y-4">
+          <form onSubmit={(e) => handleFormSubmit(e, addProgramKerja, 'pro')} className="space-y-4">
             <div>
               <label htmlFor="nama" className="block text-sm font-medium text-gray-700">Nama Program</label>
               <input type="text" name="nama" id="nama" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
@@ -94,11 +140,13 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
               <label htmlFor="penanggungJawab" className="block text-sm font-medium text-gray-700">Penanggung Jawab</label>
               <input type="text" name="penanggungJawab" id="penanggungJawab" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
-            <button type="submit" className="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-md hover:bg-purple-700">Simpan Program</button>
-           <div>
-              <label htmlFor="imageFileProker" className="block text-sm font-medium text-gray-700">Gambar Program (Opsional)</label>
-              <input type="file" name="imageFile" id="imageFileProker" accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" />
-            </div>
+            <button 
+              type="submit" 
+              disabled={isSubmitting.pro} 
+              className="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-md hover:bg-purple-700 disabled:bg-gray-400"
+            >
+              {isSubmitting.pro ? 'Mengompres...' : 'Simpan Program'}
+            </button>
           </form>
         </div>
       </div>
