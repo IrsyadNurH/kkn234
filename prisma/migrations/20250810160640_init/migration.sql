@@ -5,6 +5,7 @@ CREATE TABLE "public"."ProgramKerja" (
     "deskripsi" TEXT NOT NULL,
     "tanggal" TIMESTAMP(3) NOT NULL,
     "penanggungJawab" TEXT NOT NULL,
+    "imageUrl" TEXT,
 
     CONSTRAINT "ProgramKerja_pkey" PRIMARY KEY ("id")
 );
@@ -27,6 +28,7 @@ CREATE TABLE "public"."Artikel" (
     "judul" TEXT NOT NULL,
     "konten" TEXT NOT NULL,
     "tanggalTerbit" TIMESTAMP(3) NOT NULL,
+    "imageUrl" TEXT,
 
     CONSTRAINT "Artikel_pkey" PRIMARY KEY ("id")
 );

@@ -18,6 +18,7 @@ model ProgramKerja {
   deskripsi       String
   tanggal         DateTime      // <-- @default(now()) dihapus
   penanggungJawab String
+  imageUrl        String?       // <-- TAMBAHKAN INI
   dokumentasi     Dokumentasi[]
 }
 
@@ -36,4 +37,5 @@ model Artikel {
   judul         String
   konten        String   @db.Text
   tanggalTerbit DateTime // <-- 'createdAt' diganti nama dan @default(now()) dihapus
+  imageUrl      String?  // <-- TAMBAHKAN INI
 }

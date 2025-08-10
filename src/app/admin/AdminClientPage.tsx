@@ -66,6 +66,10 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
               <textarea name="konten" id="konten" rows={3} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
             <button type="submit" className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">Terbitkan Artikel</button>
+           <div>
+              <label htmlFor="imageFileArtikel" className="block text-sm font-medium text-gray-700">Gambar Artikel (Opsional)</label>
+              <input type="file" name="imageFile" id="imageFileArtikel" accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100" />
+            </div>
           </form>
         </div>
 
@@ -91,6 +95,10 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
               <input type="text" name="penanggungJawab" id="penanggungJawab" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
             <button type="submit" className="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-md hover:bg-purple-700">Simpan Program</button>
+           <div>
+              <label htmlFor="imageFileProker" className="block text-sm font-medium text-gray-700">Gambar Program (Opsional)</label>
+              <input type="file" name="imageFile" id="imageFileProker" accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" />
+            </div>
           </form>
         </div>
       </div>

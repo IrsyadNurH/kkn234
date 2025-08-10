@@ -46,17 +46,20 @@ export async function addArtikel(formData: FormData) {
   const judul = formData.get('judul') as string;
   const konten = formData.get('konten') as string;
   const tanggalTerbitString = formData.get('tanggalTerbit') as string;
+  const imageFile = formData.get('imageFile') as File | null;
 
   if (!judul || !konten || !tanggalTerbitString) {
     throw new Error('Judul, konten, dan tanggal terbit artikel wajib diisi.');
   }
 
+  let imageUrl: string | null = null;
+  if (imageFile && imageFile.size > 0) {
+    const blob = await put(imageFile.name, imageFile, { access: 'public', addRandomSuffix: true });
+    imageUrl = blob.url;
+  }
+
   await prisma.artikel.create({
-    data: {
-      judul,
-      konten,
-      tanggalTerbit: new Date(tanggalTerbitString), // Simpan sebagai objek Date
-    },
+    data: { judul, konten, tanggalTerbit: new Date(tanggalTerbitString), imageUrl },
   });
 
   revalidatePath('/artikel');
@@ -66,31 +69,34 @@ export async function addArtikel(formData: FormData) {
 export async function deleteArtikel(formData: FormData) {
   const id = Number(formData.get('id'));
   if (!id) throw new Error('ID diperlukan.');
-  
+  const artikel = await prisma.artikel.findUnique({ where: { id } });
+  if (artikel && artikel.imageUrl) {
+    await del(artikel.imageUrl);
+  }
   await prisma.artikel.delete({ where: { id } });
-
   revalidatePath('/artikel');
   revalidatePath('/admin');
 }
-
 // --- AKSI BARU UNTUK PROGRAM KERJA ---
 export async function addProgramKerja(formData: FormData) {
   const nama = formData.get('nama') as string;
   const deskripsi = formData.get('deskripsi') as string;
   const penanggungJawab = formData.get('penanggungJawab') as string;
   const tanggalString = formData.get('tanggal') as string;
+  const imageFile = formData.get('imageFile') as File | null;
 
   if (!nama || !deskripsi || !penanggungJawab || !tanggalString) {
     throw new Error('Semua field program kerja wajib diisi.');
   }
 
+  let imageUrl: string | null = null;
+  if (imageFile && imageFile.size > 0) {
+    const blob = await put(imageFile.name, imageFile, { access: 'public', addRandomSuffix: true });
+    imageUrl = blob.url;
+  }
+
   await prisma.programKerja.create({
-    data: {
-      nama,
-      deskripsi,
-      penanggungJawab,
-      tanggal: new Date(tanggalString), // Simpan sebagai objek Date
-    },
+    data: { nama, deskripsi, penanggungJawab, tanggal: new Date(tanggalString), imageUrl },
   });
 
   revalidatePath('/program-kerja');
@@ -100,11 +106,11 @@ export async function addProgramKerja(formData: FormData) {
 export async function deleteProgramKerja(formData: FormData) {
     const id = Number(formData.get('id'));
     if (!id) throw new Error('ID diperlukan.');
-    
+    const proker = await prisma.programKerja.findUnique({ where: { id } });
+    if (proker && proker.imageUrl) {
+        await del(proker.imageUrl);
+    }
     await prisma.programKerja.delete({ where: { id } });
-
     revalidatePath('/program-kerja');
     revalidatePath('/admin');
 }
-
-

@@ -1,5 +1,6 @@
 // app/artikel/page.tsx
 import { prisma } from '../../../lib/prisma';
+import Image from 'next/image'; // Impor Image
 
 // Removed unused Link import
 export const dynamic = 'force-dynamic';
@@ -24,6 +25,12 @@ export default async function ArtikelListPage() {
       <div className="space-y-8 max-w-4xl mx-auto">
         {daftarArtikel.map((artikel) => (
           <div key={artikel.id} className="bg-white p-6 rounded-lg shadow-md">
+                {/* Tampilkan gambar jika ada */}
+              {artikel.imageUrl && (
+              <div className="relative w-full h-64 mb-6 rounded-md overflow-hidden">
+                <Image src={artikel.imageUrl} alt={artikel.judul} fill className="object-cover" />
+              </div>
+            )}
             <h2 className="text-2xl font-bold text-blue-600 mb-2">{artikel.judul}</h2>
             <p className="text-gray-500 text-sm mb-4">
               {/* PERBAIKAN: Ganti 'createdAt' menjadi 'tanggalTerbit' */}
