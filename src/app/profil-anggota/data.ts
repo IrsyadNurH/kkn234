@@ -32,7 +32,7 @@ export const dataDivisi: Divisi[] = [
       { 
         nama: 'Aulia Hafifah Nuha', 
         jabatan: 'Sekretaris',
-        divisi: 'Struktur Inti',
+        divisi: 'Ex-Off',
         jurusan: 'Ilmu Komunikasi Jurnalistik', 
         imageUrl: 'fotoAnggota/aul1.png',
         slug: 'aulia-nuha',
@@ -45,9 +45,9 @@ export const dataDivisi: Divisi[] = [
        { 
         nama: 'R. Arik Athallah Bianov Wibisono', 
         jabatan: 'Ketua',
-        divisi: 'Struktur Inti',
+        divisi: 'Ex-Off',
         jurusan: 'Sejarah Peradaban Islam', 
-        imageUrl: 'fotoAnggota/arik.png',
+        imageUrl: 'fotoAnggota/atthala1.png',
         slug: 'arik-wibisono',
         profilePicture: 'fotoAnggota/atthala1.png',
         galleryImages: ['fotoAnggota/atthala1.png', 'fotoAnggota/atthala2.png', 'fotoAnggota/atthala3.png'],
@@ -58,7 +58,7 @@ export const dataDivisi: Divisi[] = [
       { 
         nama: 'Yutrie Annisa Herlambang', 
         jabatan: 'Bendahara',
-        divisi: 'Struktur Inti',
+        divisi: 'Ex-Off',
         jurusan: 'Pendidikan Islam Anak Usia Dini', 
         imageUrl: 'fotoAnggota/yut1.png',
         slug: 'yutrie-herlambang',
