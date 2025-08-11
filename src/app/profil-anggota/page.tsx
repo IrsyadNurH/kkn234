@@ -36,15 +36,17 @@ export default function ProfilAnggotaPage() {
       <div className="space-y-16">
         {dataDivisi.map((divisi) => (
           <section key={divisi.nama}>
-            {/* --- BAGIAN BANNER BARU --- */}
+            {/* --- PERBAIKAN UTAMA ADA DI SINI --- */}
             <div
-              className="relative h-48 rounded-lg overflow-hidden flex items-center justify-center p-6 bg-cover bg-center mb-8"
+              // 1. Hapus tinggi tetap 'h-48'.
+              // 2. Tambahkan kelas 'aspect-[5184/1523]' untuk memaksa rasio aspek yang benar.
+              className="relative aspect-[5184/1523] w-full rounded-lg overflow-hidden flex items-center justify-center p-6 bg-cover bg-center mb-8"
               style={{ backgroundImage: `url(${divisi.bannerUrl})` }}
             >
               {/* Overlay untuk membuat teks lebih mudah dibaca */}
               <div className="absolute inset-0 bg-black opacity-50"></div>
               {/* Judul Divisi */}
-              <h2 className="relative text-4xl font-bold text-white z-10 text-center">
+              <h2 className="relative text-4xl font-bold text-white z-10 text-center drop-shadow-lg">
                 {divisi.nama}
               </h2>
             </div>
