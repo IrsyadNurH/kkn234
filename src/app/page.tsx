@@ -3,6 +3,7 @@ import HomepageSlideshow from './components/HomepageSlideshow';
 import ProkerCard from './components/ProkerCard';
 import ArtikelCard from './components/ArtikelCard';
 import Link from 'next/link';
+import Image from 'next/image'; // Impor komponen Image
 
 export const dynamic = 'force-dynamic';
 
@@ -68,7 +69,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* --- BAGIAN INSTAGRAM BARU --- */}
       <section className="py-16 bg-white">
         <div className="container mx-auto text-center px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
@@ -88,15 +88,29 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* --- BAGIAN PETA LOKASI BARU --- */}
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-4 sm:px-6">
+          {/* --- BAGIAN PETA TEMATIK BARU --- */}
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+            Peta Wilayah Desa
+          </h2>
+          <div className="mb-16 rounded-lg overflow-hidden shadow-xl">
+            <Image 
+              src="/peta-tematik.jpg" 
+              alt="Peta Tematik Desa Mangunarga"
+              width={1200}
+              height={600}
+              className="w-full h-auto"
+            />
+          </div>
+
+          {/* --- BAGIAN PETA LOKASI --- */}
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
             Lokasi Desa Mangunarga
           </h2>
           <div className="rounded-lg overflow-hidden shadow-xl">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15842.66481158148!2d107.78922894999999!3d-6.9304983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c3a110315705%3A0x5e4491a1a54f6b0!2sMangunarga%2C%20Kec.%20Cimanggung%2C%20Kabupaten%20Sumedang%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1723280252530!5m2!1sid!2sid"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15842.66481158148!2d107.78922894999999!3d-6.9304983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c3a110315705%3A0x5e4491a1a54f6b0!2sMangunarga%2C%2Kec.%20Cimanggung%2C%20Kabupaten%20Sumedang%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1723280252530!5m2!1sid!2sid"
               className="w-full h-96 border-0"
               allowFullScreen={true}
               loading="lazy"
