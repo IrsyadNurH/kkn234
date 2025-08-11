@@ -92,7 +92,7 @@ export default async function Home() {
         <div className="container mx-auto px-4 sm:px-6">
           {/* --- BAGIAN PETA TEMATIK BARU --- */}
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-            Peta Wilayah Desa
+            Peta Batas Wilayah Desa Mangunarga RW 06 & 08
           </h2>
           <div className="mb-16 rounded-lg overflow-hidden shadow-xl">
             <Image 
