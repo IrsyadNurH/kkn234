@@ -172,11 +172,11 @@ export const dataDivisi: Divisi[] = [
         social: { instagram: 'https://www.instagram.com/syifaazzahrap?igsh=MTRydW50eHd5eXd5cQ==' }
       },
       { 
-        nama: 'Agil Sapik Maulana', 
+        nama: 'Agil Syafiq Maulana', 
         divisi: 'Divisi Humas',
         jurusan: 'Komunikasi dan Penyiaran Islam', 
         imageUrl: 'fotoAnggota/agil1.png',
-        slug: 'agil-sapik',
+        slug: 'agil-syafiq',
         profilePicture: 'fotoAnggota/agil1.png',
         galleryImages: ['fotoAnggota/agil1.png', 'fotoAnggota/agil2.png', 'fotoAnggota/agil3.png'],
         quote: 'Menjalin silaturahmi, membuka jalan pengabdian.',
