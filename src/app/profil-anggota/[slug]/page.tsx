@@ -1,4 +1,4 @@
-'use client'; // Jadikan Client Component untuk interaktivitas
+'use client';
 
 import { useState, useEffect } from 'react';
 import { useParams, notFound } from 'next/navigation';
@@ -11,26 +11,24 @@ export default function AnggotaDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
 
-  const allAnggota = dataDivisi.flatMap(divisi => divisi.anggota);
-  const anggota = allAnggota.find(a => a.slug === slug);
+  const anggota = dataDivisi.flatMap(divisi => divisi.anggota).find(a => a.slug === slug);
 
+  // State untuk melacak gambar mana yang sedang aktif di tengah
   const [activeImage, setActiveImage] = useState(anggota?.profilePicture || '');
 
+  // --- PERBAIKAN UTAMA ---
+  // useEffect ini sekarang HANYA akan berjalan saat 'slug' (URL) berubah.
+  // Ini akan mengatur ulang gambar ke default saat Anda mengunjungi profil orang lain,
+  // tetapi tidak akan mengganggu saat Anda mengklik galeri orang yang sama.
   useEffect(() => {
-    const currentAnggota = allAnggota.find(a => a.slug === slug);
-    if (currentAnggota) {
-      setActiveImage(currentAnggota.profilePicture);
+    if (anggota) {
+      setActiveImage(anggota.profilePicture);
     }
-  }, [slug, allAnggota]);
+  }, [slug]); // Dependensi diubah menjadi 'slug' saja
 
   if (!anggota) {
     return notFound();
   }
-
-  const handleThumbnailClick = (imgUrl: string) => {
-    console.log("Mengubah gambar aktif menjadi:", imgUrl); // Untuk debugging di konsol browser
-    setActiveImage(imgUrl);
-  };
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-12">
@@ -42,7 +40,7 @@ export default function AnggotaDetailPage() {
             {anggota.galleryImages.map((imgUrl, index) => (
               <button
                 key={index}
-                onClick={() => handleThumbnailClick(imgUrl)}
+                onClick={() => setActiveImage(imgUrl)} // Langsung set state, tidak perlu fungsi terpisah
                 className={`block w-full aspect-square relative rounded-md overflow-hidden transition-all duration-200 ${
                   activeImage === imgUrl
                     ? 'ring-4 ring-blue-500'
@@ -65,8 +63,7 @@ export default function AnggotaDetailPage() {
         <div className="lg:col-span-5">
             <div className="sticky top-24 aspect-square relative">
                  <Image
-                    // PERBAIKAN: Menambahkan 'key' untuk memaksa re-render
-                    key={activeImage} 
+                    // 'key' tidak lagi diperlukan di sini dengan logika useEffect yang benar
                     src={activeImage}
                     alt={`Foto profil ${anggota.nama}`}
                     fill
