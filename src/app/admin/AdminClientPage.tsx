@@ -21,7 +21,7 @@ async function compressImage(file: File): Promise<File> {
   console.log(`Original size: ${(file.size / 1024 / 1024).toFixed(2)} MB`);
   
   const options = {
-    maxSizeMB: 3,
+    maxSizeMB: 3, // Target kompresi maksimal 3 MB
     maxWidthOrHeight: 1920,
     useWebWorker: true,
   };
@@ -75,7 +75,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
       const imageFile = formData.get('imageFile') as File | null;
 
       if (imageFile?.size) {
-        if (imageFile.size > 20 * 1024 * 1024) {
+        if (imageFile.size > 20 * 1024 * 1024) { 
           throw new Error('File terlalu besar (maksimal 20MB)');
         }
         const compressedFile = await compressImage(imageFile);
@@ -103,7 +103,7 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
         {/* Form Dokumentasi */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Foto Dokumentasi</h3>
-          <form onSubmit={(e) => handleFormSubmit(e, addDokumentasi, 'dok')} className="space-y-4" encType="multipart/form-data">
+          <form onSubmit={(e) => handleFormSubmit(e, addDokumentasi, 'dok', true)} className="space-y-4" encType="multipart/form-data">
             <div>
               <label htmlFor="imageFile" className="block text-sm font-medium text-gray-700">Pilih Gambar</label>
               <input type="file" name="imageFile" id="imageFile" required accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
@@ -130,15 +130,19 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
         {/* Form Artikel */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Artikel Baru</h3>
-          <form onSubmit={(e) => handleFormSubmit(e, addArtikel, 'art')} className="space-y-4">
+          <form onSubmit={(e) => handleFormSubmit(e, addArtikel, 'art')} className="space-y-4" encType="multipart/form-data">
             <div>
               <label htmlFor="judul" className="block text-sm font-medium text-gray-700">Judul</label>
               <input type="text" name="judul" id="judul" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
-            {/* INPUT TANGGAL BARU */}
             <div>
               <label htmlFor="tanggalTerbit" className="block text-sm font-medium text-gray-700">Tanggal Terbit</label>
               <input type="date" name="tanggalTerbit" id="tanggalTerbit" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            </div>
+            {/* PERBAIKAN: Input file yang hilang ditambahkan kembali */}
+            <div>
+              <label htmlFor="imageFileArtikel" className="block text-sm font-medium text-gray-700">Gambar Artikel (Opsional)</label>
+              <input type="file" name="imageFile" id="imageFileArtikel" accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100" />
             </div>
             <div>
               <label htmlFor="konten" className="block text-sm font-medium text-gray-700">Konten</label>
@@ -156,15 +160,19 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
         {/* Form Program Kerja */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold mb-4">Program Kerja</h3>
-          <form onSubmit={(e) => handleFormSubmit(e, addProgramKerja, 'pro')} className="space-y-4">
+          <form onSubmit={(e) => handleFormSubmit(e, addProgramKerja, 'pro')} className="space-y-4" encType="multipart/form-data">
             <div>
               <label htmlFor="nama" className="block text-sm font-medium text-gray-700">Nama Program</label>
               <input type="text" name="nama" id="nama" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
             </div>
-            {/* INPUT TANGGAL BARU */}
             <div>
               <label htmlFor="tanggal" className="block text-sm font-medium text-gray-700">Tanggal Pelaksanaan</label>
               <input type="date" name="tanggal" id="tanggal" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            </div>
+            {/* PERBAIKAN: Input file yang hilang ditambahkan kembali */}
+            <div>
+              <label htmlFor="imageFileProker" className="block text-sm font-medium text-gray-700">Gambar Program (Opsional)</label>
+              <input type="file" name="imageFile" id="imageFileProker" accept="image/png, image/jpeg, image/gif" className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" />
             </div>
             <div>
               <label htmlFor="deskripsi" className="block text-sm font-medium text-gray-700">Deskripsi</label>
