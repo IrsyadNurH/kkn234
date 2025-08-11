@@ -115,7 +115,7 @@ export const dataDivisi: Divisi[] = [
         nama: 'Irsyad Nur Hidayatullah', 
         divisi: 'Divisi PDD',
         jurusan: 'Teknik Informatika', 
-        imageUrl: '/kkn234-mangunarga/public/fotoAnggota/Irsyad1.png',
+        imageUrl: '/kkn234-mangunarga/public/fotoAnggota/irsyad.jpg',
         slug: 'irsyad-nur',
         profilePicture: '/kkn234-mangunarga/public/fotoAnggota/Irsyad1.png',
         galleryImages: ['/kkn234-mangunarga/public/fotoAnggota/Irsyad1.png', '/kkn234-mangunarga/public/fotoAnggota/Irsyad2.png', '/kkn234-mangunarga/public/fotoAnggota/Irsyad3.png'],
