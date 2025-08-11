@@ -18,6 +18,7 @@ export type Anggota = {
 // Tipe data untuk setiap divisi
 export type Divisi = {
   nama: string;
+  bannerUrl: string; // <-- PROPERTI BARU
   anggota: Anggota[];
 };
 
@@ -25,6 +26,7 @@ export type Divisi = {
 export const dataDivisi: Divisi[] = [
   {
     nama: 'Struktur Inti',
+    bannerUrl: '/banners/struktur-inti.JPG', 
     anggota: [
       { 
         nama: 'R. Arik Athallah Bianov Wibisono', 
@@ -69,6 +71,7 @@ export const dataDivisi: Divisi[] = [
   },
   {
     nama: 'Divisi Acara',
+    bannerUrl: '/banners/acara.JPG', 
     anggota: [
       { 
         nama: 'Saniyyah Barkah', 
@@ -110,6 +113,7 @@ export const dataDivisi: Divisi[] = [
   },
   {
     nama: 'Divisi PDD',
+    bannerUrl: '/banners/pdd.JPG', 
     anggota: [
       { 
         nama: 'Irsyad Nur Hidayatullah', 
@@ -151,6 +155,7 @@ export const dataDivisi: Divisi[] = [
   },
   {
     nama: 'Divisi Humas',
+    bannerUrl: '/banners/humas.JPG', 
     anggota: [
       { 
         nama: 'Agil Sapik Maulana', 
@@ -192,6 +197,7 @@ export const dataDivisi: Divisi[] = [
   },
   {
     nama: 'Divisi Konsumsi',
+    bannerUrl: '/banners/konsumsi.JPG', 
     anggota: [
       { 
         nama: 'Nok Windy Nurjanah', 
