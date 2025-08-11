@@ -18,7 +18,7 @@ export type Anggota = {
 // Tipe data untuk setiap divisi
 export type Divisi = {
   nama: string;
-  bannerUrl: string; // <-- PROPERTI BARU
+  bannerUrl: string; 
   anggota: Anggota[];
 };
 
@@ -52,11 +52,11 @@ export const dataDivisi: Divisi[] = [
         profilePicture: 'fotoAnggota/atthala1.png',
         galleryImages: ['fotoAnggota/atthala1.png', 'fotoAnggota/atthala2.png', 'fotoAnggota/atthala3.png'],
         quote: 'Memimpin dengan integritas, mengabdi dengan sepenuh hati.',
-        bio: 'Ariq adalah seorang mahasiswa Sejarah Peradaban Islam yang memiliki minat besar dalam kepemimpinan dan organisasi. Sebagai ketua, ia bertanggung jawab untuk mengkoordinasikan seluruh kegiatan KKN dan memastikan semua program berjalan lancar.',
+        bio: 'Athallah adalah seorang mahasiswa Sejarah Peradaban Islam yang memiliki skill dalam kepemimpinan dan organisasi. Sebagai ketua, ia bertanggung jawab dalam menahkodai dan mengkoordinasikan seluruh kegiatan KKN dan memastikan semua program berjalan lancar.',
         social: { instagram: 'https://www.instagram.com/arqathllah?igsh=MWRtbmhydWF3aHFmeQ==' }
       },
       { 
-        nama: 'Yutrie Annisa Herlambang', 
+        nama: 'Yutrie Annisaa Herlambang', 
         jabatan: 'Bendahara',
         divisi: 'Ex-Off',
         jurusan: 'Pendidikan Islam Anak Usia Dini', 
@@ -130,7 +130,7 @@ export const dataDivisi: Divisi[] = [
         social: { instagram: 'https://www.instagram.com/ridhommujahid?igsh=MW50NnRrOWJ0bDlvNg==' }
       },
       { 
-        nama: 'Aditya Novrizal Ramdani', 
+        nama: 'Aditya Novrizal Ramdhani', 
         divisi: 'Divisi PDD',
         jurusan: 'Ekonomi Syari\'ah', 
         imageUrl: 'fotoAnggota/adit1.png',
@@ -203,23 +203,23 @@ export const dataDivisi: Divisi[] = [
     bannerUrl: '/banners/konsumsi.JPG', 
     anggota: [
       { 
-        nama: 'Nok Windy Nurjanah', 
+        nama: 'Nok Windi Nurjanah', 
         divisi: 'Divisi Konsumsi',
         jurusan: 'Pendidikan Agama Islam', 
         imageUrl: 'fotoAnggota/windy1.png',
-        slug: 'nok-windy',
+        slug: 'nok-windi',
         profilePicture: 'fotoAnggota/windy1.png',
         galleryImages: ['fotoAnggota/windy1.png', 'fotoAnggota/windy2.png', 'fotoAnggota/windy3.png'],
         quote: 'Energi tim berawal dari konsumsi yang baik.',
-        bio: 'Windy memastikan seluruh anggota tim dan peserta kegiatan mendapatkan konsumsi yang cukup dan layak, menjaga semangat dan energi selama KKN berlangsung.',
+        bio: 'Windi memastikan seluruh anggota tim dan peserta kegiatan mendapatkan konsumsi yang cukup dan layak, menjaga semangat dan energi selama KKN berlangsung.',
         social: { instagram: 'https://www.instagram.com/wndnrjnh_?igsh=MXJqZzFxaGNldGpuMg==' }
       },
       { 
-        nama: 'Nurjanah Azzahra', 
+        nama: 'Nurjanah Azahra', 
         divisi: 'Divisi Konsumsi',
         jurusan: 'Sastra Inggris', 
         imageUrl: 'fotoAnggota/nur1.png',
-        slug: 'nurjanah-azzahra',
+        slug: 'nurjanah-azahra',
         profilePicture: 'fotoAnggota/nur1.png',
         galleryImages: ['fotoAnggota/nur1.png', 'fotoAnggota/nur2.png', 'fotoAnggota/nur3.png'],
         quote: 'Menyajikan dengan senyuman adalah bumbu terbaik.',
