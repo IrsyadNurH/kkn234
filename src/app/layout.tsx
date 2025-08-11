@@ -51,7 +51,7 @@ export default function RootLayout({
     if (isLoading) {
       const timer = setTimeout(() => {
         handleLoadingFinish();
-      }, 5000); // Maksimal loading 5 detik
+      }, 10000); // Maksimal loading 10 detik
 
       return () => clearTimeout(timer);
     }
