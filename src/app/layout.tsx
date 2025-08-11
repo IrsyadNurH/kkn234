@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation'; // Import hook untuk mendapatkan path halaman
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from './components/Header';
@@ -13,25 +14,49 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // Mulai dengan true untuk memeriksa kondisi
+  const pathname = usePathname(); // Mendapatkan path halaman saat ini
 
-  // Fungsi ini akan dipanggil oleh video ketika selesai
+  // Efek ini hanya berjalan sekali saat aplikasi pertama kali dimuat di tab
+  useEffect(() => {
+    const hasLoadedOnce = sessionStorage.getItem('kkn_has_loaded_once');
+
+    if (hasLoadedOnce) {
+      // Jika loading awal sudah pernah terjadi di sesi ini, jangan tampilkan lagi
+      setIsLoading(false);
+      return;
+    }
+
+    // Jika ini adalah kunjungan pertama di sesi ini,
+    // hanya tampilkan loading jika halaman yang dikunjungi adalah beranda atau admin.
+    if (pathname === '/' || pathname === '/admin') {
+      setIsLoading(true); // Tetap tampilkan loading
+    } else {
+      // Jika halaman pertama yang dikunjungi bukan beranda/admin,
+      // langsung lewati loading dan tandai sudah pernah dimuat.
+      setIsLoading(false);
+      sessionStorage.setItem('kkn_has_loaded_once', 'true');
+    }
+  }, []); // Dependency array kosong `[]` memastikan ini hanya berjalan sekali
+
+  // Fungsi ini akan dipanggil saat loading selesai (baik dari video atau timer)
   const handleLoadingFinish = () => {
     setIsLoading(false);
+    // Tandai di session storage bahwa loading awal sudah selesai
+    sessionStorage.setItem('kkn_has_loaded_once', 'true');
   };
 
+  // Timer cadangan untuk memastikan loading tidak macet
   useEffect(() => {
-    // --- PERBAIKAN ---
-    // Atur timer sebagai cadangan. Loading screen akan hilang setelah 4 detik,
-    // tidak peduli apakah video selesai atau tidak.
-    // Ini untuk mencegah macet jika pengguna pindah tab.
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 4000); // 4000ms = 4 detik. Sesuaikan durasi ini agar sedikit lebih lama dari video Anda.
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        handleLoadingFinish();
+      }, 5000); // Maksimal loading 5 detik
 
-    // Membersihkan timer jika komponen di-unmount (praktik terbaik)
-    return () => clearTimeout(timer);
-  }, []); // [] berarti efek ini hanya dijalankan sekali saat komponen dimuat
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
+
 
   return (
     <html lang="id">
@@ -42,8 +67,6 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className}`}>
         {isLoading ? (
-          // onFinished tetap ada agar video bisa menyembunyikan loading lebih cepat
-          // jika selesai sebelum timeout.
           <LoadingScreen onFinished={handleLoadingFinish} />
         ) : (
           <>
