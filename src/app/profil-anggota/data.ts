@@ -43,16 +43,16 @@ export const dataDivisi: Divisi[] = [
         social: { instagram: 'https://www.instagram.com/auliaapipah_?igsh=MWQ3ZXg5c3p4dXNndA==' }
       },
        { 
-        nama: 'R. Arik Athallah Bianov Wibisono', 
+        nama: 'R. Ariq Athallah Bianov Wibisono', 
         jabatan: 'Ketua',
         divisi: 'Ex-Off',
         jurusan: 'Sejarah Peradaban Islam', 
         imageUrl: 'fotoAnggota/atthala1.png',
-        slug: 'arik-wibisono',
+        slug: 'ariq-wibisono',
         profilePicture: 'fotoAnggota/atthala1.png',
         galleryImages: ['fotoAnggota/atthala1.png', 'fotoAnggota/atthala2.png', 'fotoAnggota/atthala3.png'],
         quote: 'Memimpin dengan integritas, mengabdi dengan sepenuh hati.',
-        bio: 'Arik adalah seorang mahasiswa Sejarah Peradaban Islam yang memiliki minat besar dalam kepemimpinan dan organisasi. Sebagai ketua, ia bertanggung jawab untuk mengkoordinasikan seluruh kegiatan KKN dan memastikan semua program berjalan lancar.',
+        bio: 'Ariq adalah seorang mahasiswa Sejarah Peradaban Islam yang memiliki minat besar dalam kepemimpinan dan organisasi. Sebagai ketua, ia bertanggung jawab untuk mengkoordinasikan seluruh kegiatan KKN dan memastikan semua program berjalan lancar.',
         social: { instagram: 'https://www.instagram.com/arqathllah?igsh=MWRtbmhydWF3aHFmeQ==' }
       },
       { 
