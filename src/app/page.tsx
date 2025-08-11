@@ -104,13 +104,15 @@ export default async function Home() {
             />
           </div>
 
+        
           {/* --- BAGIAN PETA LOKASI --- */}
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
             Lokasi Desa Mangunarga
           </h2>
           <div className="rounded-lg overflow-hidden shadow-xl">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15842.66481158148!2d107.78922894999999!3d-6.9304983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c3a110315705%3A0x5e4491a1a54f6b0!2sMangunarga%2C%2Kec.%20Cimanggung%2C%20Kabupaten%20Sumedang%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1723280252530!5m2!1sid!2sid"
+              // PERBAIKAN: URL embed Google Maps diperbarui
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31685.33405364817!2d107.77926889453125!3d-6.930438600000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c3a110315705%3A0x5e4491a1a54f6b0!2sMangunarga%2C%2C%20Kec.%20Cimanggung%2C%20Kabupaten%20Sumedang%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1691745781471!5m2!1sid!2sid"
               className="w-full h-96 border-0"
               allowFullScreen={true}
               loading="lazy"
