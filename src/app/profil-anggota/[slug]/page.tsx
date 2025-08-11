@@ -41,7 +41,8 @@ export default function AnggotaDetailPage() {
               <button
                 key={index}
                 onClick={() => setActiveImage(imgUrl)} // Langsung set state, tidak perlu fungsi terpisah
-                className={`block w-full aspect-square relative rounded-md overflow-hidden transition-all duration-200 ${
+                // PERUBAHAN: Mengubah ukuran ikon menjadi lebih kecil
+                className={`block w-20 h-20 relative rounded-md overflow-hidden transition-all duration-200 ${
                   activeImage === imgUrl
                     ? 'ring-4 ring-blue-500'
                     : 'opacity-60 hover:opacity-100'
