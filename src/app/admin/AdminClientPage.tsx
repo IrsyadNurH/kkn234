@@ -75,8 +75,8 @@ function AdminDashboard({ dokumentasi, artikel, programKerja }: { dokumentasi: D
       const imageFile = formData.get('imageFile') as File | null;
 
       if (imageFile?.size) {
-        if (imageFile.size > 10 * 1024 * 1024) {
-          throw new Error('File terlalu besar (maksimal 10MB)');
+        if (imageFile.size > 20 * 1024 * 1024) {
+          throw new Error('File terlalu besar (maksimal 20MB)');
         }
         const compressedFile = await compressImage(imageFile);
         formData.set('imageFile', compressedFile, compressedFile.name);
