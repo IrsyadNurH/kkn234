@@ -40,7 +40,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/aul1.png', 'fotoAnggota/aul2.png', 'fotoAnggota/aul3.png'],
         quote: 'Setiap kata yang tertulis adalah jejak pengabdian.',
         bio: 'Aulia, dengan latar belakang jurnalistiknya, bertanggung jawab atas semua administrasi dan dokumentasi tertulis. Kemampuannya dalam berkomunikasi memastikan semua informasi tersampaikan dengan jelas dan akurat.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/auliaapipah_?igsh=MWQ3ZXg5c3p4dXNndA==' }
       },
        { 
         nama: 'R. Arik Athallah Bianov Wibisono', 
@@ -53,7 +53,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/atthala1.png', 'fotoAnggota/atthala2.png', 'fotoAnggota/atthala3.png'],
         quote: 'Memimpin dengan integritas, mengabdi dengan sepenuh hati.',
         bio: 'Arik adalah seorang mahasiswa Sejarah Peradaban Islam yang memiliki minat besar dalam kepemimpinan dan organisasi. Sebagai ketua, ia bertanggung jawab untuk mengkoordinasikan seluruh kegiatan KKN dan memastikan semua program berjalan lancar.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/arqathllah?igsh=MWRtbmhydWF3aHFmeQ==' }
       },
       { 
         nama: 'Yutrie Annisa Herlambang', 
@@ -66,7 +66,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/yut1.png', 'fotoAnggota/yut2.png', 'fotoAnggota/yut3.png'],
         quote: 'Keuangan yang sehat adalah awal dari program yang hebat.',
         bio: 'Yutrie memegang peran krusial dalam mengelola keuangan kelompok. Dengan ketelitian dan kejujurannya, ia memastikan setiap dana digunakan secara efisien untuk keberhasilan program KKN.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/yutriean_?igsh=cXZhYXVqcjl2bGI5' }
       },
     ],
   },
@@ -96,7 +96,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/puspa1.png', 'fotoAnggota/puspa2.png', 'fotoAnggota/puspa3.png'],
         quote: 'Setiap detail acara adalah variabel menuju kesuksesan.',
         bio: 'Dengan pendekatan yang sistematis seperti fisika, Puspa membantu merancang acara dengan detail yang matang, memastikan semua aspek teknis dan non-teknis terpenuhi.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/pn.msydaah?igsh=djJ0MGpoOGF3cG91' }
       },
       {
         nama: 'Saniyyah Barkah', 
@@ -108,7 +108,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/saniyyah1.png', 'fotoAnggota/saniyyah2.png', 'fotoAnggota/saniyyah3.png'],
         quote: 'Merancang acara yang berkesan adalah seni.',
         bio: 'Saniyyah adalah otak di balik perencanaan dan pelaksanaan berbagai acara KKN. Keahliannya dalam mengorganisir memastikan setiap kegiatan berjalan meriah dan sesuai dengan tujuan.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/___snyyh_?igsh=MWtrYXNudzQyODRtdw==' }
       },
     ],
   },
@@ -127,7 +127,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/rido1.png', 'fotoAnggota/rido2.png', 'fotoAnggota/rido3.png'],
         quote: 'Setiap foto adalah arsip pengabdian.',
         bio: 'Ridho menggabungkan keahlian administrasinya dengan kreativitas untuk memastikan semua hasil dokumentasi terarsip dengan baik dan dipublikasikan secara efektif.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/ridhommujahid?igsh=MW50NnRrOWJ0bDlvNg==' }
       },
       { 
         nama: 'Aditya Novrizal Ramdani', 
@@ -139,7 +139,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/adit1.png', 'fotoAnggota/adit2.png', 'fotoAnggota/adit3.png'],
         quote: 'Visual yang baik adalah investasi.',
         bio: 'Aditya membawa perspektif ekonomi dalam setiap desain, memastikan bahwa semua materi publikasi tidak hanya menarik secara visual tetapi juga efisien dan tepat sasaran.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/novrizal_aditya?igsh=ZnVuMjh5dHlqcndk' }
       },
       { 
         nama: 'Irsyad Nur Hidayatullah', 
@@ -169,7 +169,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/syifa1.png', 'fotoAnggota/syifa2.png', 'fotoAnggota/syifa3.png'],
         quote: 'Memahami masyarakat adalah kunci komunikasi yang efektif.',
         bio: 'Dengan latar belakang sosiologinya, Syifa membantu tim untuk memahami struktur sosial dan budaya masyarakat, memastikan pendekatan humas yang tepat dan empatik.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/syifaazzahrap?igsh=MTRydW50eHd5eXd5cQ==' }
       },
       { 
         nama: 'Agil Sapik Maulana', 
@@ -181,7 +181,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/agil1.png', 'fotoAnggota/agil2.png', 'fotoAnggota/agil3.png'],
         quote: 'Menjalin silaturahmi, membuka jalan pengabdian.',
         bio: 'Agil adalah wajah dari kelompok KKN, bertugas membangun hubungan baik dengan masyarakat, tokoh desa, dan pihak eksternal untuk kelancaran program.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/agilsyfiq?igsh=MmFpdXg1Y2p5eGhx' }
       },
      
       { 
@@ -194,7 +194,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/wit1.png', 'fotoAnggota/wit2.png', 'fotoAnggota/wit3.png'],
         quote: 'Komunikasi yang tulus datang dari hati.',
         bio: 'Witria menggunakan pemahamannya tentang psikologi untuk membangun komunikasi yang mendalam dan tulus dengan warga, membantu menyelesaikan masalah dan membangun kepercayaan.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/wyuliianaa?igsh=MTFka3JqazVwYTgzcQ==' }
       },
     ],
   },
@@ -212,7 +212,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/windy1.png', 'fotoAnggota/windy2.png', 'fotoAnggota/windy3.png'],
         quote: 'Energi tim berawal dari konsumsi yang baik.',
         bio: 'Windy memastikan seluruh anggota tim dan peserta kegiatan mendapatkan konsumsi yang cukup dan layak, menjaga semangat dan energi selama KKN berlangsung.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/wndnrjnh_?igsh=MXJqZzFxaGNldGpuMg==' }
       },
       { 
         nama: 'Nurjanah Azzahra', 
@@ -224,7 +224,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/nur1.png', 'fotoAnggota/nur2.png', 'fotoAnggota/nur3.png'],
         quote: 'Menyajikan dengan senyuman adalah bumbu terbaik.',
         bio: 'Nurjanah tidak hanya membantu menyiapkan konsumsi, tetapi juga menyajikannya dengan ramah, menambah suasana positif dalam setiap kegiatan.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/nzhr_ss?igsh=MWNjdGhpdzZwbmdvaQ==' }
       },
       { 
         nama: 'Rosalinda', 
@@ -236,7 +236,7 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/ocha1.png', 'fotoAnggota/ocha2.png', 'fotoAnggota/ocha3.png'],
         quote: 'Keteraturan dalam konsumsi adalah cermin keteraturan program.',
         bio: 'Rosalinda menerapkan prinsip keteraturan dalam mengelola logistik dan distribusi konsumsi, memastikan semua berjalan sesuai rencana dan anggaran.',
-        social: { instagram: '' }
+        social: { instagram: 'https://www.instagram.com/rossalinda_14?igsh=MXd1bGJjdDMxbDh2YQ==' }
       },
       
     ],
