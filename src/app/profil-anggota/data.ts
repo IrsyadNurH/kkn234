@@ -25,8 +25,8 @@ export type Divisi = {
 // Data lengkap anggota
 export const dataDivisi: Divisi[] = [
   {
-    nama: 'Struktur Inti',
-    bannerUrl: '/banners/struktur-inti.JPG', 
+    nama: 'Ex-Off',
+    bannerUrl: '/banners/ex-off.jpg', 
     anggota: [
      
       { 
@@ -49,8 +49,8 @@ export const dataDivisi: Divisi[] = [
         jurusan: 'Sejarah Peradaban Islam', 
         imageUrl: 'fotoAnggota/arik.png',
         slug: 'arik-wibisono',
-        profilePicture: 'fotoAnggota/arik1.png',
-        galleryImages: ['fotoAnggota/arik1.png', 'fotoAnggota/arik2.png', 'fotoAnggota/arik3.png'],
+        profilePicture: 'fotoAnggota/atthala1.png',
+        galleryImages: ['fotoAnggota/atthala1.png', 'fotoAnggota/atthala2.png', 'fotoAnggota/atthala3.png'],
         quote: 'Memimpin dengan integritas, mengabdi dengan sepenuh hati.',
         bio: 'Arik adalah seorang mahasiswa Sejarah Peradaban Islam yang memiliki minat besar dalam kepemimpinan dan organisasi. Sebagai ketua, ia bertanggung jawab untuk mengkoordinasikan seluruh kegiatan KKN dan memastikan semua program berjalan lancar.',
         social: { instagram: '' }
