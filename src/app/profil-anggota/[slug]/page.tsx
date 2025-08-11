@@ -11,14 +11,11 @@ export default function AnggotaDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
 
-  // Menggabungkan semua anggota menjadi satu array untuk kemudahan akses
   const allAnggota = dataDivisi.flatMap(divisi => divisi.anggota);
   const anggota = allAnggota.find(a => a.slug === slug);
 
-  // State untuk melacak gambar mana yang sedang aktif di tengah
   const [activeImage, setActiveImage] = useState(anggota?.profilePicture || '');
 
-  // Efek untuk mengubah gambar aktif jika slug berubah (saat navigasi)
   useEffect(() => {
     const currentAnggota = allAnggota.find(a => a.slug === slug);
     if (currentAnggota) {
@@ -26,10 +23,14 @@ export default function AnggotaDetailPage() {
     }
   }, [slug, allAnggota]);
 
-  // Jika slug tidak valid atau anggota tidak ditemukan, tampilkan 404
   if (!anggota) {
     return notFound();
   }
+
+  const handleThumbnailClick = (imgUrl: string) => {
+    console.log("Mengubah gambar aktif menjadi:", imgUrl); // Untuk debugging di konsol browser
+    setActiveImage(imgUrl);
+  };
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-12">
@@ -41,7 +42,7 @@ export default function AnggotaDetailPage() {
             {anggota.galleryImages.map((imgUrl, index) => (
               <button
                 key={index}
-                onClick={() => setActiveImage(imgUrl)}
+                onClick={() => handleThumbnailClick(imgUrl)}
                 className={`block w-full aspect-square relative rounded-md overflow-hidden transition-all duration-200 ${
                   activeImage === imgUrl
                     ? 'ring-4 ring-blue-500'
@@ -64,6 +65,8 @@ export default function AnggotaDetailPage() {
         <div className="lg:col-span-5">
             <div className="sticky top-24 aspect-square relative">
                  <Image
+                    // PERBAIKAN: Menambahkan 'key' untuk memaksa re-render
+                    key={activeImage} 
                     src={activeImage}
                     alt={`Foto profil ${anggota.nama}`}
                     fill
