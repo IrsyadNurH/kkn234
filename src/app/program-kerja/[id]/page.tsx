@@ -22,14 +22,16 @@ async function getProgramKerjaDetail(id: number) {
   return program;
 }
 
-// Define the correct props type for the page
+// PERBAIKAN UTAMA: Mendefinisikan 'params' sebagai Promise
 interface PageProps {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 }
 
-// Make the component async to correctly handle props
+// PERBAIKAN UTAMA: Menggunakan async/await pada 'params'
 export default async function ProgramKerjaDetailPage({ params }: PageProps) {
-  const id = parseInt(params.id, 10);
+  const { id: idString } = await params; // Await params untuk mendapatkan ID
+  const id = parseInt(idString, 10);
+
   if (isNaN(id)) {
     notFound();
   }
