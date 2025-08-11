@@ -3,7 +3,7 @@ import HomepageSlideshow from './components/HomepageSlideshow';
 import ProkerCard from './components/ProkerCard';
 import ArtikelCard from './components/ArtikelCard';
 import Link from 'next/link';
-import Image from 'next/image'; // Impor komponen Image
+import Image from 'next/image';
 
 export const dynamic = 'force-dynamic';
 
@@ -69,8 +69,7 @@ export default async function Home() {
         </div>
       </section>
 
-   
-       <section className="py-16 bg-white">
+      <section className="py-16 bg-white">
         <div className="container mx-auto text-center px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
             Ikuti Perjalanan Kami
@@ -93,7 +92,13 @@ export default async function Home() {
               className="inline-flex items-center gap-3 bg-gray-900 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-transform transform hover:scale-105"
             >
               {/* --- PERBAIKAN DI SINI --- */}
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-.95-6.43-2.88-1.59-1.93-2.23-4.5-1.91-7.12.32-2.61 1.8-4.88 3.83-6.36 2.04-1.49 4.56-2.09 7.02-1.74-.04 2.11-.02 4.22.02 6.33-.01 1.08-.37 2.14-1.05 2.96-.69.81-1.63 1.26-2.66 1.32-1.03.06-2.06-.15-2.93-.61-.87-.47-1.53-1.24-1.89-2.21-.24-.65-.3-1.36-.26-2.08.03-.73.23-1.45.56-2.1.33-.65.8-1.23 1.38-1.69.58-.46 1.26-.78 1.98-.95.72-.17 1.46-.2 2.18-.09.04 1.57.02 3.14-.02 4.71-.18.17-.36.33-.56.48-.44.35-.95.6-1.5.73-.55.13-1.1.16-1.65.09-.55-.07-1.08-.27-1.53-.59-.45-.32-.83-.72-1.11-1.19-.28-.47-.45-.99-.5-1.52-.05-.53.01-1.07.18-1.59.17-.52.45-1 .81-1.41.36-.41.8-.74 1.29-1 .49-.26 1.02-.43 1.57-.51.55-.08 1.1-.06 1.65.02.55.08 1.09.26 1.59.52.5.26.95.6 1.34 1.01.39.41.7.89.92 1.41.22.52.33 1.08.34 1.64.01.56-.09 1.12-.29 1.64-.2.52-.5 1-.88 1.41-.38.41-.84.74-1.35.99-.51.25-1.07.4-1.64.44-.57.04-1.14.01-1.71-.11Z"/></svg>
+              <Image
+                src="/tiktok-logo.svg"
+                alt="TikTok Icon"
+                width={24}
+                height={24}
+                className="filter invert" // Tambahkan ini agar ikon menjadi putih
+              />
               @kkn234.mangunarga
             </Link>
           </div>
@@ -102,28 +107,25 @@ export default async function Home() {
 
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-4 sm:px-6">
-          {/* --- BAGIAN PETA TEMATIK BARU --- */}
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-            Peta Batas Wilayah Desa Mangunarga RW 06 & 08
+            Peta Wilayah Desa
           </h2>
           <div className="mb-16 rounded-lg overflow-hidden shadow-xl">
             <Image 
-              src="/peta-tematik.jpg" 
+              src="/images/peta-tematik.jpg" 
               alt="Peta Tematik Desa Mangunarga"
               width={1200}
               height={600}
               className="w-full h-auto"
             />
           </div>
-        
-          {/* --- BAGIAN PETA LOKASI --- */}
+
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
             Lokasi Desa Mangunarga
           </h2>
           <div className="rounded-lg overflow-hidden shadow-xl">
             <iframe
-              // PERBAIKAN: URL embed Google Maps diperbarui dengan zoom lebih dekat
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7921.332380530728!2d107.7868356922915!3d-6.930503949999991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c3a110315705%3A0x5e4491a1a54f6b0!2sMangunarga%2C%20Kec.%20Cimanggung%2C%20Kabupaten%20Sumedang%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1723370630563!5m2!1sid!2sid"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7921.332380530728!2d107.7868356922915!3d-6.930503949999991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c3a110315705%3A0x5e4491a1a54f6b0!2sMangunarga%2C%2C%20Kec.%20Cimanggung%2C%20Kabupaten%20Sumedang%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1723370630563!5m2!1sid!2sid"
               className="w-full h-96 border-0"
               allowFullScreen={true}
               loading="lazy"
