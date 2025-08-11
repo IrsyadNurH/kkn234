@@ -78,7 +78,7 @@ export const dataDivisi: Divisi[] = [
         nama: 'Miftah Sidiq Nur Islam', 
         divisi: 'Divisi Acara',
         jurusan: 'Aqidah dan Filsafat Islam', 
-        imageUrl: 'fotoAnggota/miftah.png',
+        imageUrl: 'fotoAnggota/miftah1.png',
         slug: 'miftah-sidiq',
         profilePicture: 'fotoAnggota/miftah1.png',
         galleryImages: ['fotoAnggota/miftah1.png', 'fotoAnggota/miftah2.png', 'fotoAnggota/miftah3.png'],
