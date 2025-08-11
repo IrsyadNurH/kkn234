@@ -1,6 +1,16 @@
-import { prisma } from '../../../../lib/prisma';
+import {prisma} from '../../../../lib/prisma';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+
+// This function helps Next.js know which pages to build statically
+export async function generateStaticParams() {
+    const programs = await prisma.programKerja.findMany({
+        select: { id: true }
+    });
+    return programs.map(program => ({
+        id: program.id.toString(),
+    }));
+}
 
 async function getProgramKerjaDetail(id: number) {
   const program = await prisma.programKerja.findUnique({
@@ -12,8 +22,13 @@ async function getProgramKerjaDetail(id: number) {
   return program;
 }
 
-export default async function ProgramKerjaDetailPage({ params }: { params: { id: string } }) {
-  // Pastikan ID adalah angka
+// Define the correct props type for the page
+interface PageProps {
+    params: { id: string };
+}
+
+// Make the component async to correctly handle props
+export default async function ProgramKerjaDetailPage({ params }: PageProps) {
   const id = parseInt(params.id, 10);
   if (isNaN(id)) {
     notFound();
