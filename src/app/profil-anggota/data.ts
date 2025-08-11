@@ -28,19 +28,7 @@ export const dataDivisi: Divisi[] = [
     nama: 'Struktur Inti',
     bannerUrl: '/banners/struktur-inti.JPG', 
     anggota: [
-      { 
-        nama: 'R. Arik Athallah Bianov Wibisono', 
-        jabatan: 'Ketua',
-        divisi: 'Struktur Inti',
-        jurusan: 'Sejarah Peradaban Islam', 
-        imageUrl: 'fotoAnggota/arik.png',
-        slug: 'arik-wibisono',
-        profilePicture: 'fotoAnggota/arik1.png',
-        galleryImages: ['fotoAnggota/arik1.png', 'fotoAnggota/arik2.png', 'fotoAnggota/arik3.png'],
-        quote: 'Memimpin dengan integritas, mengabdi dengan sepenuh hati.',
-        bio: 'Arik adalah seorang mahasiswa Sejarah Peradaban Islam yang memiliki minat besar dalam kepemimpinan dan organisasi. Sebagai ketua, ia bertanggung jawab untuk mengkoordinasikan seluruh kegiatan KKN dan memastikan semua program berjalan lancar.',
-        social: { instagram: '' }
-      },
+     
       { 
         nama: 'Aulia Hafifah Nuha', 
         jabatan: 'Sekretaris',
@@ -52,6 +40,19 @@ export const dataDivisi: Divisi[] = [
         galleryImages: ['fotoAnggota/aul1.png', 'fotoAnggota/aul2.png', 'fotoAnggota/aul3.png'],
         quote: 'Setiap kata yang tertulis adalah jejak pengabdian.',
         bio: 'Aulia, dengan latar belakang jurnalistiknya, bertanggung jawab atas semua administrasi dan dokumentasi tertulis. Kemampuannya dalam berkomunikasi memastikan semua informasi tersampaikan dengan jelas dan akurat.',
+        social: { instagram: '' }
+      },
+       { 
+        nama: 'R. Arik Athallah Bianov Wibisono', 
+        jabatan: 'Ketua',
+        divisi: 'Struktur Inti',
+        jurusan: 'Sejarah Peradaban Islam', 
+        imageUrl: 'fotoAnggota/arik.png',
+        slug: 'arik-wibisono',
+        profilePicture: 'fotoAnggota/arik1.png',
+        galleryImages: ['fotoAnggota/arik1.png', 'fotoAnggota/arik2.png', 'fotoAnggota/arik3.png'],
+        quote: 'Memimpin dengan integritas, mengabdi dengan sepenuh hati.',
+        bio: 'Arik adalah seorang mahasiswa Sejarah Peradaban Islam yang memiliki minat besar dalam kepemimpinan dan organisasi. Sebagai ketua, ia bertanggung jawab untuk mengkoordinasikan seluruh kegiatan KKN dan memastikan semua program berjalan lancar.',
         social: { instagram: '' }
       },
       { 
@@ -74,15 +75,15 @@ export const dataDivisi: Divisi[] = [
     bannerUrl: '/banners/acara.JPG', 
     anggota: [
       { 
-        nama: 'Saniyyah Barkah', 
+        nama: 'Miftah Sidiq Nur Islam', 
         divisi: 'Divisi Acara',
-        jurusan: 'Pendidikan Bahasa Arab', 
-        imageUrl: 'fotoAnggota/saniyyah1.png',
-        slug: 'saniyyah-barkah',
-        profilePicture: 'fotoAnggota/saniyyah1.png',
-        galleryImages: ['fotoAnggota/saniyyah1.png', 'fotoAnggota/saniyyah2.png', 'fotoAnggota/saniyyah3.png'],
-        quote: 'Merancang acara yang berkesan adalah seni.',
-        bio: 'Saniyyah adalah otak di balik perencanaan dan pelaksanaan berbagai acara KKN. Keahliannya dalam mengorganisir memastikan setiap kegiatan berjalan meriah dan sesuai dengan tujuan.',
+        jurusan: 'Aqidah dan Filsafat Islam', 
+        imageUrl: 'fotoAnggota/miftah.png',
+        slug: 'miftah-sidiq',
+        profilePicture: 'fotoAnggota/miftah1.png',
+        galleryImages: ['fotoAnggota/miftah1.png', 'fotoAnggota/miftah2.png', 'fotoAnggota/miftah3.png'],
+        quote: 'Acara yang baik memiliki makna yang mendalam.',
+        bio: 'Miftah membawa perspektif filosofis ke dalam setiap acara, memastikan bahwa setiap kegiatan tidak hanya menghibur tetapi juga memberikan nilai dan makna bagi masyarakat.',
         social: { instagram: '' }
       },
       { 
@@ -97,16 +98,16 @@ export const dataDivisi: Divisi[] = [
         bio: 'Dengan pendekatan yang sistematis seperti fisika, Puspa membantu merancang acara dengan detail yang matang, memastikan semua aspek teknis dan non-teknis terpenuhi.',
         social: { instagram: '' }
       },
-      { 
-        nama: 'Miftah Sidiq Nur Islam', 
+      {
+        nama: 'Saniyyah Barkah', 
         divisi: 'Divisi Acara',
-        jurusan: 'Aqidah dan Filsafat Islam', 
-        imageUrl: 'fotoAnggota/miftah.png',
-        slug: 'miftah-sidiq',
-        profilePicture: 'fotoAnggota/miftah1.png',
-        galleryImages: ['fotoAnggota/miftah1.png', 'fotoAnggota/miftah2.png', 'fotoAnggota/miftah3.png'],
-        quote: 'Acara yang baik memiliki makna yang mendalam.',
-        bio: 'Miftah membawa perspektif filosofis ke dalam setiap acara, memastikan bahwa setiap kegiatan tidak hanya menghibur tetapi juga memberikan nilai dan makna bagi masyarakat.',
+        jurusan: 'Pendidikan Bahasa Arab', 
+        imageUrl: 'fotoAnggota/saniyyah1.png',
+        slug: 'saniyyah-barkah',
+        profilePicture: 'fotoAnggota/saniyyah1.png',
+        galleryImages: ['fotoAnggota/saniyyah1.png', 'fotoAnggota/saniyyah2.png', 'fotoAnggota/saniyyah3.png'],
+        quote: 'Merancang acara yang berkesan adalah seni.',
+        bio: 'Saniyyah adalah otak di balik perencanaan dan pelaksanaan berbagai acara KKN. Keahliannya dalam mengorganisir memastikan setiap kegiatan berjalan meriah dan sesuai dengan tujuan.',
         social: { instagram: '' }
       },
     ],
@@ -115,18 +116,7 @@ export const dataDivisi: Divisi[] = [
     nama: 'Divisi PDD',
     bannerUrl: '/banners/pdd.JPG', 
     anggota: [
-      { 
-        nama: 'Irsyad Nur Hidayatullah', 
-        divisi: 'Divisi PDD',
-        jurusan: 'Teknik Informatika', 
-        imageUrl: 'fotoAnggota/irsyad.jpg',
-        slug: 'irsyad-nur',
-        profilePicture: 'fotoAnggota/Irsyad1.png',
-        galleryImages: ['fotoAnggota/Irsyad1.png', 'fotoAnggota/Irsyad2.png', 'fotoAnggota/Irsyad3.png'],
-        quote: 'Mendokumentasikan momen, mengabadikan cerita.',
-        bio: 'Sebagai motor di divisi PDD, Irsyad bertanggung jawab atas semua aspek teknis dari dokumentasi, publikasi, dan desain visual, termasuk pembuatan website ini.',
-        social: { instagram: '' }
-      },
+      
       { 
         nama: 'Muhammad Ridho Mujahid', 
         divisi: 'Divisi PDD',
@@ -151,12 +141,36 @@ export const dataDivisi: Divisi[] = [
         bio: 'Aditya membawa perspektif ekonomi dalam setiap desain, memastikan bahwa semua materi publikasi tidak hanya menarik secara visual tetapi juga efisien dan tepat sasaran.',
         social: { instagram: '' }
       },
+      { 
+        nama: 'Irsyad Nur Hidayatullah', 
+        divisi: 'Divisi PDD',
+        jurusan: 'Teknik Informatika', 
+        imageUrl: 'fotoAnggota/irsyad.jpg',
+        slug: 'irsyad-nur',
+        profilePicture: 'fotoAnggota/Irsyad1.png',
+        galleryImages: ['fotoAnggota/Irsyad1.png', 'fotoAnggota/Irsyad2.png', 'fotoAnggota/Irsyad3.png'],
+        quote: 'Mendokumentasikan momen, mengabadikan cerita.',
+        bio: 'Sebagai motor di divisi PDD, Irsyad bertanggung jawab atas semua aspek teknis dari dokumentasi, publikasi, dan desain visual, termasuk pembuatan website ini.',
+        social: { instagram: 'https://www.instagram.com/irsyadnh_?igsh=c2dmb2g1YmU2aGw5' }
+      },
     ],
   },
   {
     nama: 'Divisi Humas',
     bannerUrl: '/banners/humas.JPG', 
     anggota: [
+       { 
+        nama: 'Syifa Azzahra', 
+        divisi: 'Divisi Humas',
+        jurusan: 'Sosiologi', 
+        imageUrl: 'fotoAnggota/syifa1.png',
+        slug: 'syifa-azzahra',
+        profilePicture: 'fotoAnggota/syifa1.png',
+        galleryImages: ['fotoAnggota/syifa1.png', 'fotoAnggota/syifa2.png', 'fotoAnggota/syifa3.png'],
+        quote: 'Memahami masyarakat adalah kunci komunikasi yang efektif.',
+        bio: 'Dengan latar belakang sosiologinya, Syifa membantu tim untuk memahami struktur sosial dan budaya masyarakat, memastikan pendekatan humas yang tepat dan empatik.',
+        social: { instagram: '' }
+      },
       { 
         nama: 'Agil Sapik Maulana', 
         divisi: 'Divisi Humas',
@@ -169,18 +183,7 @@ export const dataDivisi: Divisi[] = [
         bio: 'Agil adalah wajah dari kelompok KKN, bertugas membangun hubungan baik dengan masyarakat, tokoh desa, dan pihak eksternal untuk kelancaran program.',
         social: { instagram: '' }
       },
-      { 
-        nama: 'Syifa Azzahra', 
-        divisi: 'Divisi Humas',
-        jurusan: 'Sosiologi', 
-        imageUrl: 'fotoAnggota/syifa1.png',
-        slug: 'syifa-azzahra',
-        profilePicture: 'fotoAnggota/syifa1.png',
-        galleryImages: ['fotoAnggota/syifa1.png', 'fotoAnggota/syifa2.png', 'fotoAnggota/syifa3.png'],
-        quote: 'Memahami masyarakat adalah kunci komunikasi yang efektif.',
-        bio: 'Dengan latar belakang sosiologinya, Syifa membantu tim untuk memahami struktur sosial dan budaya masyarakat, memastikan pendekatan humas yang tepat dan empatik.',
-        social: { instagram: '' }
-      },
+     
       { 
         nama: 'Witria Yuliana', 
         divisi: 'Divisi Humas',
@@ -212,18 +215,6 @@ export const dataDivisi: Divisi[] = [
         social: { instagram: '' }
       },
       { 
-        nama: 'Rosalinda', 
-        divisi: 'Divisi Konsumsi',
-        jurusan: 'Hukum Tata Negara', 
-        imageUrl: 'fotoAnggota/ocha1.png',
-        slug: 'rosalinda',
-        profilePicture: 'fotoAnggota/ocha1.png',
-        galleryImages: ['fotoAnggota/ocha1.png', 'fotoAnggota/ocha2.png', 'fotoAnggota/ocha3.png'],
-        quote: 'Keteraturan dalam konsumsi adalah cermin keteraturan program.',
-        bio: 'Rosalinda menerapkan prinsip keteraturan dalam mengelola logistik dan distribusi konsumsi, memastikan semua berjalan sesuai rencana dan anggaran.',
-        social: { instagram: '' }
-      },
-      { 
         nama: 'Nurjanah Azzahra', 
         divisi: 'Divisi Konsumsi',
         jurusan: 'Sastra Inggris', 
@@ -235,6 +226,19 @@ export const dataDivisi: Divisi[] = [
         bio: 'Nurjanah tidak hanya membantu menyiapkan konsumsi, tetapi juga menyajikannya dengan ramah, menambah suasana positif dalam setiap kegiatan.',
         social: { instagram: '' }
       },
+      { 
+        nama: 'Rosalinda', 
+        divisi: 'Divisi Konsumsi',
+        jurusan: 'Hukum Tata Negara', 
+        imageUrl: 'fotoAnggota/ocha1.png',
+        slug: 'rosalinda',
+        profilePicture: 'fotoAnggota/ocha1.png',
+        galleryImages: ['fotoAnggota/ocha1.png', 'fotoAnggota/ocha2.png', 'fotoAnggota/ocha3.png'],
+        quote: 'Keteraturan dalam konsumsi adalah cermin keteraturan program.',
+        bio: 'Rosalinda menerapkan prinsip keteraturan dalam mengelola logistik dan distribusi konsumsi, memastikan semua berjalan sesuai rencana dan anggaran.',
+        social: { instagram: '' }
+      },
+      
     ],
   },
 ];
