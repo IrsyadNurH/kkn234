@@ -145,7 +145,7 @@ export const dataDivisi: Divisi[] = [
         nama: 'Irsyad Nur Hidayatullah', 
         divisi: 'Divisi PDD',
         jurusan: 'Teknik Informatika', 
-        imageUrl: 'fotoAnggota/irsyad.jpg',
+        imageUrl: 'fotoAnggota/irsyad.png',
         slug: 'irsyad-nur',
         profilePicture: 'fotoAnggota/Irsyad1.png',
         galleryImages: ['fotoAnggota/Irsyad1.png', 'fotoAnggota/Irsyad2.png', 'fotoAnggota/Irsyad3.png'],
